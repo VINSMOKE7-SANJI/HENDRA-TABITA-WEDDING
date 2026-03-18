@@ -42,3 +42,34 @@ body {
 }
 
 .btn:hover { background-color: #bc8a5f; }
+
+.countdown-section {
+    background-color: #fff;
+    padding: 40px 0;
+}
+
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.time-box {
+    background: #d4a373;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    min-width: 60px;
+}
+
+.time-box span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: block;
+}
+
+.time-box p {
+    margin: 0;
+    font-size: 0.8rem;
+}
