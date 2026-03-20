@@ -112,3 +112,10 @@ function toggleMusic() {
         document.getElementById('music-control').style.animationPlayState = 'paused';
     }
 }
+
+function copyAccount() {
+    const accountNum = "8620684253";
+    navigator.clipboard.writeText(accountNum).then(() => {
+        alert("Nomor rekening BCA berhasil disalin!");
+    });
+}
