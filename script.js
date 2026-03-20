@@ -1,3 +1,15 @@
+// Memastikan video terputar otomatis di perangkat mobile
+window.addEventListener('load', function() {
+    const video = document.getElementById('bg-video');
+    if (video) {
+        video.play().catch(error => {
+            console.log("Autoplay dicegah oleh browser, memerlukan interaksi user.");
+        });
+    }
+});
+
+// ... (lanjutkan dengan kode countdown dan slideshow yang sudah ada)
+
 // =========================================
 // LOGIKA SLIDESHOW AUTO-PLAY
 // =========================================
