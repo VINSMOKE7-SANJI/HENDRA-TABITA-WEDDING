@@ -3,56 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Undangan Pernikahan - HENDRA & DESTANIA</title>
+    <title>Undangan Pernikahan - Alfaber & Pasangan</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="cover-overlay">
-    <div class="cover-content">
-        <p>UNDANGAN PERNIKAHAN</p>
-        <h1>HENDRA KATUMHOIT & DESTANIA TABITA SIFI</h1>
-        <p class="to-guest">Kepada Bapak/Ibu/Saudara/i:</p>
-        <h2 id="guest-name">Tamu Undangan</h2>
-        <button class="open-btn" onclick="openInvitation()">Buka Undangan</button>
-    </div>
-</div>
-
-<div id="main-invitation" style="display: none;">
     <div class="main-background">
         <video autoplay muted loop playsinline id="bg-video">
-            <source src="Background.mp4" type="video/mp4">
+            <source src="images/background.mp4" type="video/mp4">
         </video>
+        
         <div class="bg-overlay"></div>
+
         <div class="slideshow-container">
-            <div class="mySlides fade"><img src="Slide1.jpg" alt="Foto 1"></div>
-            <div class="mySlides fade"><img src="Slide2.jpg" alt="Foto 2"></div>
-            <div class="mySlides fade"><img src="Slide3.jpg" alt="Foto 3"></div>
-            <div class="mySlides fade"><img src="Slide4.jpg" alt="Foto 4"></div>
-            <div class="mySlides fade"><img src="Slide5.jpg" alt="Foto 5"></div>
+            <div class="mySlides fade"><img src="images/slide1.jpg" alt="Foto 1"></div>
+            <div class="mySlides fade"><img src="images/slide2.jpg" alt="Foto 2"></div>
+            <div class="mySlides fade"><img src="images/slide3.jpg" alt="Foto 3"></div>
+            <div class="mySlides fade"><img src="images/slide4.jpg" alt="Foto 4"></div>
+            <div class="mySlides fade"><img src="images/slide5.jpg" alt="Foto 5"></div>
         </div>
     </div>
-
     <div class="main-content-wrapper">
         <header class="hero-section">
             <div class="hero-content">
                 <p class="pre-title">UNDANGAN PERNIKAHAN</p>
-                <h1 class="couple-names">HENDRA <br>&<br> DESTANIA</h1>
-                <p class="event-date-top">26 . 04 . 2026</p>
+                <h1 class="couple-names">Nama Suami <br>&<br> Nama Istri</h1>
+                <p class="event-date-top">01 . 02 . 2027</p>
             </div>
         </header>
-
-        <section class="opening-message">
-            <div class="message-card">
-                <p class="greeting">"Dengan penuh sukacita saya ucapkan terima kasih untuk para tamu undangan"</p>
-                <div class="verse">
-                    <p>"Apa yang sudah dipersatukan Allah tidak boleh diceraikan manusia"</p>
-                    <span>(Matius 19:6, Markus 10:9)</span>
-                </div>
-                <p class="verse-desc">Ini menegaskan bahwa pernikahan adalah ikatan suci yang ditetapkan Allah (menjadi satu daging) dan bersifat kekal, sehingga manusia tidak berhak memisahkannya.</p>
-            </div>
-        </section>
 
         <section class="countdown-section">
             <h2 class="section-title">Save the Date</h2>
@@ -81,40 +60,33 @@
             <div class="event-card">
                 <h3>Akad Nikah / Pemberkatan</h3>
                 <p class="time">Pukul: 13.00 WIB - Selesai</p>
-                <p class="address">📍 Jl. Raya Jelidro IV No.2, Sambikerep, Surabaya</p>
-                <a href="https://maps.app.goo.gl/..." target="_blank" class="map-link-btn">Buka di Map</a>
+                <p class="address">
+                    <i class="icon">📍</i>
+                    Jl. Raya Jelidro IV No.2, Sambikerep,<br>
+                    Kec. Sambikerep, Surabaya, Jawa Timur 60185
+                </p>
+                <a href="http://maps.google.com/?q=Jl.+Raya+Jelidro+IV+No.2" target="_blank" class="map-link-btn">Buka di Map</a>
             </div>
-        </section>
 
-        <section class="gift-section">
-            <div class="gift-card">
-                <h2 class="section-title">Wedding Gift</h2>
-                <div class="bank-info">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="Logo BCA" class="bca-logo">
-                    <p class="account-number">8620684253</p>
-                    <p class="account-name">A/N HENDRA KATUMHOIT</p>
-                    <button class="copy-btn" onclick="copyAccount()">Salin No. Rekening</button>
-                </div>
-            </div>
-            <div class="closing-message">
-                <p>"Merupakan suatu kehormatan bagi kami jika Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu."</p>
+            <div class="event-card">
+                <h3>Resepsi</h3>
+                <p class="time">Pukul: 15.00 WIB - SELESAI</p>
+                <p class="address">
+                    <i class="icon">📍</i>
+                    Gg. Mawar 08 No.Kav 71, Tubanan,<br>
+                    Flobamora, Surabaya, Jawa Timur 60188
+                </p>
+                <a href="http://maps.google.com/?q=Gg.+Mawar+08+No.Kav+71" target="_blank" class="map-link-btn">Buka di Map</a>
             </div>
         </section>
 
         <section class="rsvp-section">
-            <a href="https://wa.me/6285743190790?text=Halo..." class="rsvp-btn">Konfirmasi Kehadiran</a>
+            <a href="https://wa.me/628123456789?text=Halo,%20saya%20akan%20hadir..." class="rsvp-btn">
+                Konfirmasi Kehadiran
+            </a>
         </section>
     </div>
-</div>
+    <script src="script.js"></script>
 
-<audio id="wedding-audio" loop>
-    <source src="Wedding-Song.mp3" type="audio/mp3">
-</audio>
-
-<div id="music-control" onclick="toggleMusic()">
-    <span id="music-icon">🎵</span>
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
