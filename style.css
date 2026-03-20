@@ -107,8 +107,8 @@ h1, h2, h3 {
 /* --- SECTION 1: HERO COVER --- */
 .hero-section {
     width: 100%;
-    min-height: 100vh; /* Fullscreen untuk pembuka */
-    background: transparent; /* Background lama dihapus */
+    min-height: 100vh;
+    background: transparent; /* Pastikan ini transparan agar video kelihatan */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -117,28 +117,11 @@ h1, h2, h3 {
     padding: 20px;
 }
 
-.hero-content {
-    max-width: 90%;
-}
-
-.pre-title {
-    font-size: 0.8rem;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-    font-weight: 300;
-}
-
-.couple-names {
-    font-size: 2.5rem;
-    line-height: 1.2;
-    margin: 15px 0;
-    font-weight: 700;
-}
-
-.event-date-top {
-    font-size: 1rem;
-    letter-spacing: 2px;
-    margin-top: 10px;
+.mySlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5; /* Kamu bisa atur kecerahan foto di sini (0.1 - 1.0) */
 }
 
 /* --- SECTION 2: COUNTDOWN --- */
