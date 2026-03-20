@@ -1,121 +1,94 @@
-// Memastikan video terputar otomatis di perangkat mobile
-window.addEventListener('load', function() {
-    const video = document.getElementById('bg-video');
-    if (video) {
-        video.play().catch(error => {
-            console.log("Autoplay dicegah oleh browser, memerlukan interaksi user.");
-        });
+// 1. SET TANGGAL HARI H (26 April 2026)
+// Ingat: Bulan Januari = 0, April = 3
+const weddingDate = new Date(2026, 3, 26, 13, 0, 0).getTime();
+
+// 2. LOGIKA COUNTDOWN
+const countdownInterval = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if (document.getElementById("days")) {
+        document.getElementById("days").innerHTML = days < 10 ? "0"+days : days;
+        document.getElementById("hours").innerHTML = hours < 10 ? "0"+hours : hours;
+        document.getElementById("minutes").innerHTML = minutes < 10 ? "0"+minutes : minutes;
+        document.getElementById("seconds").innerHTML = seconds < 10 ? "0"+seconds : seconds;
     }
-});
 
-// ... (lanjutkan dengan kode countdown dan slideshow yang sudah ada)
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.getElementById("countdown").innerHTML = "HARI BAHAGIA TELAH TIBA!";
+    }
+}, 1000);
 
-// =========================================
-// LOGIKA SLIDESHOW AUTO-PLAY
-// =========================================
+// 3. LOGIKA SLIDESHOW
 let slideIndex = 0;
-showSlides();
-
 function showSlides() {
     let i;
-    // Mengambil semua elemen dengan class "mySlides"
     let slides = document.getElementsByClassName("mySlides");
-    
-    // Sembunyikan semua slide
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";  
     }
-    
-    // Lanjut ke slide berikutnya
     slideIndex++;
-    
-    // Jika sudah di slide terakhir, kembali ke slide pertama
-    if (slideIndex > slides.length) {
-        slideIndex = 1;
-    }    
-    
-    // Tampilkan slide yang aktif
+    if (slideIndex > slides.length) {slideIndex = 1}    
     if (slides[slideIndex-1]) {
         slides[slideIndex-1].style.display = "block";  
     }
-    
-    // Ganti foto setiap 5 detik (5000ms)
-    setTimeout(showSlides, 5000); 
+    setTimeout(showSlides, 3000); // 3 detik ganti foto
 }
 
-function openInvitation() {
-    // 1. Sembunyikan Cover dengan efek pudar
-    const cover = document.getElementById('cover-overlay');
-    cover.style.opacity = '0';
-    setTimeout(() => {
-        cover.style.display = 'none';
-    }, 1000);
-
-    // 2. Tampilkan Konten Utama
-    const mainContent = document.getElementById('main-invitation');
-    mainContent.style.display = 'block';
-
-    // 3. Putar Video Otomatis
-    const video = document.getElementById('bg-video');
-    if (video) {
-        video.play();
-    }
-
-    // 4. Jalankan Slideshow (Pastikan fungsi showSlides dipanggil di sini)
-    showSlides();
-}
-
-// Fitur Tambahan: Ambil Nama Tamu dari URL (Misal: ?to=NamaTamu)
-const urlParams = new URLSearchParams(window.location.search);
-const guest = urlParams.get('to');
-if (guest) {
-    document.getElementById('guest-name').innerText = guest;
-}
-
+// 4. FUNGSI BUKA UNDANGAN (Hanya satu fungsi, tidak boleh duplikat)
 const audio = document.getElementById('wedding-audio');
 
 function openInvitation() {
-    // 1. Sembunyikan Cover
+    // Sembunyikan Cover
     const cover = document.getElementById('cover-overlay');
     cover.style.opacity = '0';
     setTimeout(() => {
         cover.style.display = 'none';
-        // Tampilkan tombol musik setelah undangan dibuka
+        // Munculkan tombol musik
         document.getElementById('music-control').style.display = 'flex';
     }, 1000);
 
-    // 2. Tampilkan Konten & Jalankan Video
+    // Tampilkan Konten
     document.getElementById('main-invitation').style.display = 'block';
+
+    // Jalankan Video & Slideshow
     const video = document.getElementById('bg-video');
     if (video) video.play();
-
-    // 3. PUTAR MUSIK
-    if (audio) {
-        audio.play().catch(error => {
-            console.log("Musik tertahan oleh kebijakan browser.");
-        });
-    }
-
-    // 4. Jalankan Slideshow
     showSlides();
+
+    // Jalankan Musik
+    if (audio) {
+        audio.play();
+    }
 }
 
-// Fungsi Nyalakan/Matikan Musik Manual
+// 5. KONTROL MUSIK ON/OFF
 function toggleMusic() {
     if (audio.paused) {
         audio.play();
         document.getElementById('music-icon').innerText = "🎵";
-        document.getElementById('music-control').style.animationPlayState = 'running';
     } else {
         audio.pause();
         document.getElementById('music-icon').innerText = "🔇";
-        document.getElementById('music-control').style.animationPlayState = 'paused';
     }
 }
 
+// 6. SALIN REKENING
 function copyAccount() {
-    const accountNum = "8620684253";
-    navigator.clipboard.writeText(accountNum).then(() => {
-        alert("Nomor rekening BCA berhasil disalin!");
+    navigator.clipboard.writeText("8620684253").then(() => {
+        alert("Nomor rekening BCA disalin!");
     });
+}
+
+// Ambil nama tamu dari URL
+const urlParams = new URLSearchParams(window.location.search);
+const guest = urlParams.get('to');
+if (guest) {
+    document.getElementById('guest-name').innerText = guest;
 }
