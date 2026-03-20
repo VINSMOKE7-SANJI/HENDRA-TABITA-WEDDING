@@ -42,3 +42,32 @@ function showSlides() {
     // Ganti foto setiap 5 detik (5000ms)
     setTimeout(showSlides, 5000); 
 }
+
+function openInvitation() {
+    // 1. Sembunyikan Cover dengan efek pudar
+    const cover = document.getElementById('cover-overlay');
+    cover.style.opacity = '0';
+    setTimeout(() => {
+        cover.style.display = 'none';
+    }, 1000);
+
+    // 2. Tampilkan Konten Utama
+    const mainContent = document.getElementById('main-invitation');
+    mainContent.style.display = 'block';
+
+    // 3. Putar Video Otomatis
+    const video = document.getElementById('bg-video');
+    if (video) {
+        video.play();
+    }
+
+    // 4. Jalankan Slideshow (Pastikan fungsi showSlides dipanggil di sini)
+    showSlides();
+}
+
+// Fitur Tambahan: Ambil Nama Tamu dari URL (Misal: ?to=NamaTamu)
+const urlParams = new URLSearchParams(window.location.search);
+const guest = urlParams.get('to');
+if (guest) {
+    document.getElementById('guest-name').innerText = guest;
+}
