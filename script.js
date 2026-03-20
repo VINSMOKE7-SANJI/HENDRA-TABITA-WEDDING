@@ -71,3 +71,44 @@ const guest = urlParams.get('to');
 if (guest) {
     document.getElementById('guest-name').innerText = guest;
 }
+
+const audio = document.getElementById('wedding-audio');
+
+function openInvitation() {
+    // 1. Sembunyikan Cover
+    const cover = document.getElementById('cover-overlay');
+    cover.style.opacity = '0';
+    setTimeout(() => {
+        cover.style.display = 'none';
+        // Tampilkan tombol musik setelah undangan dibuka
+        document.getElementById('music-control').style.display = 'flex';
+    }, 1000);
+
+    // 2. Tampilkan Konten & Jalankan Video
+    document.getElementById('main-invitation').style.display = 'block';
+    const video = document.getElementById('bg-video');
+    if (video) video.play();
+
+    // 3. PUTAR MUSIK
+    if (audio) {
+        audio.play().catch(error => {
+            console.log("Musik tertahan oleh kebijakan browser.");
+        });
+    }
+
+    // 4. Jalankan Slideshow
+    showSlides();
+}
+
+// Fungsi Nyalakan/Matikan Musik Manual
+function toggleMusic() {
+    if (audio.paused) {
+        audio.play();
+        document.getElementById('music-icon').innerText = "🎵";
+        document.getElementById('music-control').style.animationPlayState = 'running';
+    } else {
+        audio.pause();
+        document.getElementById('music-icon').innerText = "🔇";
+        document.getElementById('music-control').style.animationPlayState = 'paused';
+    }
+}
