@@ -1,35 +1,32 @@
-// Atur tanggal pernikahan di sini (Format: Tahun, Bulan-1, Tanggal, Jam, Menit)
-// Contoh: 1 Februari 2027 pukul 13:00 WIB.
-// PENTING: Bulan di JavaScript dimulai dari 0 (Januari = 0, Februari = 1)
-const weddingDate = new Date(2027, 1, 1, 13, 0, 0).getTime();
+// =========================================
+// LOGIKA SLIDESHOW AUTO-PLAY
+// =========================================
+let slideIndex = 0;
+showSlides();
 
-const x = setInterval(function() {
-    const now = new Date().getTime();
-    const distance = weddingDate - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Memperbarui elemen HTML
-    if (document.getElementById("days")) {
-        document.getElementById("days").innerHTML = formatNumber(days);
-        document.getElementById("hours").innerHTML = formatNumber(hours);
-        document.getElementById("minutes").innerHTML = formatNumber(minutes);
-        document.getElementById("seconds").innerHTML = formatNumber(seconds);
+function showSlides() {
+    let i;
+    // Mengambil semua elemen dengan class "mySlides"
+    let slides = document.getElementsByClassName("mySlides");
+    
+    // Sembunyikan semua slide
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
     }
-
-    // Jika waktu hitung mundur habis
-    if (distance < 0) {
-        clearInterval(x);
-        if (document.getElementById("countdown")) {
-            document.getElementById("countdown").innerHTML = "<div class='expired'>HARI H TELAH TIBA!</div>";
-        }
+    
+    // Lanjut ke slide berikutnya
+    slideIndex++;
+    
+    // Jika sudah di slide terakhir, kembali ke slide pertama
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }    
+    
+    // Tampilkan slide yang aktif
+    if (slides[slideIndex-1]) {
+        slides[slideIndex-1].style.display = "block";  
     }
-}, 1000);
-
-// Fungsi pembantu agar angka < 10 ada '0' didepannya (misal: 09)
-function formatNumber(num) {
-    return num < 10 && num >= 0 ? "0" + num : num;
+    
+    // Ganti foto setiap 5 detik (5000ms)
+    setTimeout(showSlides, 5000); 
 }
