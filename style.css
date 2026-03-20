@@ -6,33 +6,109 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif; /* Font untuk teks biasa */
-    background-color: #fcfcfc;
-    color: #333;
+    font-family: 'Poppins', sans-serif;
+    background-color: #000; /* Hitam agar video lebih menyatu saat loading */
+    color: #fff; /* Teks default jadi putih agar kontras */
     line-height: 1.6;
-    overflow-x: hidden; /* Mencegah halaman geser kanan-kiri */
+    overflow-x: hidden;
 }
 
 /* --- JUDUL & TIPOGRAFI --- */
 h1, h2, h3 {
-    font-family: 'Playfair Display', serif; /* Font artistik untuk judul */
+    font-family: 'Playfair Display', serif;
 }
 
 .section-title {
     text-align: center;
     font-size: 1.8rem;
-    color: #8c7355;
+    color: #f1e4d3; /* Warna emas muda agar elegan di atas bg gelap */
     margin-bottom: 25px;
     font-weight: 700;
 }
 
-/* --- SECTION 1: HERO COVER (Fix Teks Bertumpuk) --- */
+/* ========================================= */
+/* CSS UNTUK BACKGROUND (VIDEO & SLIDESHOW) */
+/* ========================================= */
+.main-background {
+    position: fixed; /* Kunci di posisi layar, tidak ikut scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Paling belakang */
+    overflow: hidden;
+}
+
+#bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%); /* Sentralisasi video */
+    object-fit: cover; /* Video memenuhi layar tanpa distorsi */
+}
+
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay hitam transparan 50% */
+    z-index: -1; /* Di atas video, di bawah slideshow */
+}
+
+/* --- SLIDESHOW STYLES --- */
+.slideshow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Di atas overlay */
+}
+
+.mySlides {
+    display: none; /* Sembunyikan semua slide awal */
+    width: 100%;
+    height: 100%;
+}
+
+.mySlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Foto memenuhi layar tanpa distorsi */
+    opacity: 0.6; /* Foto dibuat transparan agar video kelihatan */
+}
+
+/* Efek Fade (Pudar) */
+.fade {
+    animation-name: fade;
+    animation-duration: 2s; /* Durasi transisi pudar */
+}
+
+@keyframes fade {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+/* ========================================= */
+/* CSS UNTUK KONTEN UTAMA (DI ATAS BACKGROUND) */
+/* ========================================= */
+.main-content-wrapper {
+    position: relative;
+    z-index: 10; /* Pastikan di atas semua background */
+    width: 100%;
+}
+
+/* --- SECTION 1: HERO COVER --- */
 .hero-section {
     width: 100%;
-    min-height: 80vh; /* Sedikit lebih pendek dari tinggi layar agar countdown kelihatan */
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg'); /* GANTI FOTO ANDA */
-    background-size: cover;
-    background-position: center;
+    min-height: 100vh; /* Fullscreen untuk pembuka */
+    background: transparent; /* Background lama dihapus */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,7 +129,7 @@ h1, h2, h3 {
 }
 
 .couple-names {
-    font-size: 2.5rem; /* Ukuran font diperkecil agar pas di HP */
+    font-size: 2.5rem;
     line-height: 1.2;
     margin: 15px 0;
     font-weight: 700;
@@ -65,96 +141,88 @@ h1, h2, h3 {
     margin-top: 10px;
 }
 
-/* --- SECTION 2: COUNTDOWN (Fix Kotak Bertumpuk) --- */
+/* --- SECTION 2: COUNTDOWN --- */
 .countdown-section {
-    padding: 40px 20px;
-    background: white;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.05); /* Sedikit bayangan */
-    margin-top: -30px; /* Membuat countdown agak naik sedikit */
-    border-radius: 20px 20px 0 0;
-    position: relative;
-    z-index: 10;
+    padding: 60px 20px;
+    background: rgba(255, 255, 255, 0.1); /* Putih transparan tipis */
+    backdrop-filter: blur(10px); /* Efek blur kaca (Glassmorphism) */
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 30px;
+    margin: -50px 10px 0 10px; /* Jarak samping */
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .countdown-container {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Jarak antar kotak pas */
+    gap: 10px;
     width: 100%;
-    max-width: 400px; /* Batas lebar maksimal */
-    margin: 0 auto; /* Tengah-tengah */
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .time-box {
-    flex: 1; /* Setiap kotak punya lebar yang sama otomatis */
-    background: #d4a373; /* Warna asli kamu */
+    flex: 1;
+    background: #d4a373;
     color: white;
     text-align: center;
-    padding: 10px 5px; /* Padding minimalis agar muat di HP kecil */
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 15px 5px;
+    border-radius: 12px;
 }
 
 .time-box span {
-    font-size: 1.6rem; /* Ukuran angka pas */
+    font-size: 1.8rem;
     font-weight: 700;
     display: block;
-    line-height: 1.1;
 }
 
 .time-box p {
-    font-size: 0.7rem; /* Label bahasa Indonesia pas */
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
     margin-top: 3px;
-    font-weight: 300;
 }
 
-/* --- SECTION 3: LOKASI ACARA (Fix Jarak Teks) --- */
+/* --- SECTION 3: LOKASI ACARA --- */
 .details-section {
-    padding: 50px 20px;
+    padding: 60px 20px;
 }
 
 .event-card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    margin-bottom: 25px; /* Jarak antar kartu acara */
+    background: rgba(255, 255, 255, 0.9); /* Sedikit lebih pekat agar teks bacaan jelas */
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
     text-align: center;
-    border: 1px solid #f0f0f0;
+    color: #333; /* Teks dalam kartu kembali gelap */
 }
 
 .event-card h3 {
-    font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
 }
 
 .event-card .time {
     font-weight: 600;
-    color: #d4a373;
-    font-size: 1rem;
-    margin-bottom: 8px;
+    color: #a67c52; /* Warna emas lebih gelap */
+    font-size: 1.1rem;
+    margin-bottom: 10px;
 }
 
 .event-card .address {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 15px;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
 }
 
-.icon { margin-right: 5px; color: #8c7355; }
+.icon { margin-right: 5px; color: #a67c52; }
 
 .map-link-btn {
     display: inline-block;
-    padding: 8px 18px;
-    background-color: transparent;
+    padding: 10px 25px;
     border: 1px solid #d4a373;
     color: #d4a373;
     text-decoration: none;
-    border-radius: 20px;
-    font-size: 0.8rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
     transition: 0.3s;
 }
 
@@ -165,59 +233,41 @@ h1, h2, h3 {
 
 /* --- SECTION 4: RSVP & TOMBOL --- */
 .rsvp-section {
-    padding: 30px 20px 60px 20px;
+    padding: 40px 20px 80px 20px;
     text-align: center;
 }
 
 .rsvp-btn {
     display: inline-block;
-    padding: 15px 40px;
-    background-color: #d4a373; /* Warna asli kamu */
+    padding: 18px 50px;
+    background-color: #d4a373;
     color: white;
     text-decoration: none;
-    border-radius: 30px;
+    border-radius: 35px;
     font-weight: 600;
-    font-size: 1rem;
-    box-shadow: 0 6px 15px rgba(212, 163, 115, 0.4);
-    transition: 0.3s transform, 0.3s box-shadow;
+    font-size: 1.1rem;
+    box-shadow: 0 8px 20px rgba(212, 163, 115, 0.5);
+    transition: 0.3s transform;
 }
 
 .rsvp-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(212, 163, 115, 0.5);
+    transform: translateY(-5px);
 }
 
-/* --- RESPONSIVE ADJUSTMENTS (Sangat Penting untuk HP Kecil) --- */
-@media (max-width: 360px) {
-    .couple-names {
-        font-size: 2rem;
-    }
-    
-    .countdown-container {
-        gap: 5px;
-    }
-    
-    .time-box span {
-        font-size: 1.3rem;
-    }
-    
-    .time-box p {
-        font-size: 0.6rem;
-    }
-}
-
-/* Animasi halus saat halaman dimuat */
+/* --- ANIMASI FADE IN UP (Penyempurnaan Sebelumnya) --- */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-content, .event-card, .countdown-container {
-    animation: fadeInUp 1s ease-out;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 360px) {
+    .couple-names { font-size: 2rem; }
+    .countdown-container { gap: 5px; }
+    .time-box span { font-size: 1.5rem; }
+    .time-box p { font-size: 0.6rem; }
 }
