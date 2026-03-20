@@ -1,64 +1,43 @@
-// 1. Perbaikan Tanggal (April = Indeks 3)
-const weddingDate = new Date("April 26, 2026 13:00:00").getTime();
+function openInvitation() {
+    const audio = document.getElementById('wedding-audio');
+    const cover = document.getElementById('cover-overlay');
+    const main = document.getElementById('main-invitation');
+    const video = document.getElementById('bg-video');
 
-const x = setInterval(function() {
-    const now = new Date().getTime();
-    const distance = weddingDate - now;
+    // 1. Hilangkan Cover
+    cover.style.opacity = '0';
+    setTimeout(() => {
+        cover.style.display = 'none';
+        main.style.display = 'block';
+        document.getElementById('music-control').style.display = 'flex';
+        
+        // 2. Jalankan Slideshow FOTO
+        showSlides(); 
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // 3. Matikan Video Background (Opsional, agar fokus ke Slide Foto)
+        if (video) {
+            video.pause(); 
+            video.style.display = 'none'; 
+        }
+    }, 1000);
 
-    document.getElementById("days").innerHTML = days < 10 ? "0"+days : days;
-    document.getElementById("hours").innerHTML = hours < 10 ? "0"+hours : hours;
-    document.getElementById("minutes").innerHTML = minutes < 10 ? "0"+minutes : minutes;
-    document.getElementById("seconds").innerHTML = seconds < 10 ? "0"+seconds : seconds;
-
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdown").innerHTML = "HARI H TELAH TIBA";
+    // 4. Paksa Audio Berjalan (Harus di luar setTimeout agar terbaca interaksi user)
+    if (audio) {
+        audio.muted = false;
+        audio.play().catch(e => console.log("Gagal putar musik:", e));
     }
-}, 1000);
+}
 
-// 2. Logika Slideshow
+// Pastikan showSlides tidak berjalan otomatis SEBELUM diklik
 let slideIndex = 0;
 function showSlides() {
     let slides = document.getElementsByClassName("mySlides");
-    for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-    slideIndex++;
-    if (slideIndex > slides.length) {slideIndex = 1}
-    if(slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
-    setTimeout(showSlides, 3000);
-}
-
-// 3. Buka Undangan & Musik
-const audio = document.getElementById("wedding-audio");
-
-function openInvitation() {
-    document.getElementById("cover-overlay").style.opacity = "0";
-    setTimeout(() => {
-        document.getElementById("cover-overlay").style.display = "none";
-        document.getElementById("main-invitation").style.display = "block";
-        document.getElementById("music-control").style.display = "flex";
-        showSlides(); // Start slideshow setelah dibuka
-        if (audio) audio.play();
-        const v = document.getElementById("bg-video");
-        if(v) v.play();
-    }, 1000);
-}
-
-function toggleMusic() {
-    if (audio.paused) {
-        audio.play();
-        document.getElementById("music-icon").innerText = "🎵";
-    } else {
-        audio.pause();
-        document.getElementById("music-icon").innerText = "🔇";
+    if (slides.length === 0) return;
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
     }
-}
-
-function copyAccount() {
-    navigator.clipboard.writeText("8620684253");
-    alert("Nomor rekening berhasil disalin!");
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    slides[slideIndex-1].style.display = "block";  
+    setTimeout(showSlides, 3000); // Ganti tiap 3 detik
 }
