@@ -9,98 +9,112 @@
 </head>
 <body>
 
-    <div id="cover-overlay">
-        <video autoplay muted loop playsinline class="bg-video-cover">
+<div id="cover-overlay">
+    <div class="cover-content">
+        <p>UNDANGAN PERNIKAHAN</p>
+        <h1>HENDRA KATUMHOIT & DESTANIA TABITA SIFI</h1>
+        <p class="to-guest">Kepada Bapak/Ibu/Saudara/i:</p>
+        <h2 id="guest-name">Tamu Undangan</h2>
+        <button class="open-btn" onclick="openInvitation()">Buka Undangan</button>
+    </div>
+</div>
+
+<div id="main-invitation" style="display: none;">
+    <div class="main-background">
+        <video autoplay muted loop playsinline id="bg-video">
             <source src="Background.mp4" type="video/mp4">
         </video>
         <div class="bg-overlay"></div>
-        <div class="cover-content">
-            <p>UNDANGAN PERNIKAHAN</p>
-            <h1>HENDRA KATUMHOIT <br>&<br> DESTANIA TABITA SIFI</h1>
-            <p class="to-guest">Kepada Bapak/Ibu/Saudara/i:</p>
-            <h2 id="guest-name">Tamu Undangan</h2>
-            <button class="open-btn" onclick="openInvitation()">Buka Undangan</button>
+        <div class="slideshow-container">
+            <div class="mySlides fade"><img src="Slide1.jpg" alt="Foto 1"></div>
+            <div class="mySlides fade"><img src="Slide2.jpg" alt="Foto 2"></div>
+            <div class="mySlides fade"><img src="Slide3.jpg" alt="Foto 3"></div>
+            <div class="mySlides fade"><img src="Slide4.jpg" alt="Foto 4"></div>
+            <div class="mySlides fade"><img src="Slide5.jpg" alt="Foto 5"></div>
         </div>
     </div>
 
-    <div id="main-invitation" style="display: none;">
-        <div class="main-background">
-            <video autoplay muted loop playsinline id="bg-video">
-                <source src="Background.mp4" type="video/mp4">
-            </video>
-            <div class="bg-overlay"></div>
-            <div class="slideshow-container">
-                <div class="mySlides fade"><img src="Slide1.jpg"></div>
-                <div class="mySlides fade"><img src="Slide2.jpg"></div>
-                <div class="mySlides fade"><img src="Slide3.jpg"></div>
-                <div class="mySlides fade"><img src="Slide4.jpg"></div>
-                <div class="mySlides fade"><img src="Slide5.jpg"></div>
+    <div class="main-content-wrapper">
+        <header class="hero-section">
+            <div class="hero-content">
+                <p class="pre-title">UNDANGAN PERNIKAHAN</p>
+                <h1 class="couple-names">HENDRA <br>&<br> DESTANIA</h1>
+                <p class="event-date-top">26 . 04 . 2026</p>
             </div>
-        </div>
+        </header>
 
-        <div class="main-content-wrapper">
-            <header class="hero-section">
-                <div class="hero-content">
-                    <p class="pre-title">UNDANGAN PERNIKAHAN</p>
-                    <h1 class="couple-names">HENDRA & DESTANIA</h1>
-                    <p class="event-date-top">26 . 04 . 2026</p>
+        <section class="opening-message">
+            <div class="message-card">
+                <p class="greeting">"Dengan penuh sukacita saya ucapkan terima kasih untuk para tamu undangan"</p>
+                <div class="verse">
+                    <p>"Apa yang sudah dipersatukan Allah tidak boleh diceraikan manusia"</p>
+                    <span>(Matius 19:6, Markus 10:9)</span>
                 </div>
-            </header>
+                <p class="verse-desc">Ini menegaskan bahwa pernikahan adalah ikatan suci yang ditetapkan Allah (menjadi satu daging) dan bersifat kekal, sehingga manusia tidak berhak memisahkannya.</p>
+            </div>
+        </section>
 
-            <section class="opening-message">
-                <div class="message-card">
-                    <p class="greeting">"Dengan penuh sukacita saya ucapkan terima kasih untuk para tamu undangan"</p>
-                    <div class="verse">
-                        <p>"Apa yang sudah dipersatukan Allah tidak boleh diceraikan manusia"</p>
-                        <span>(Matius 19:6, Markus 10:9)</span>
-                    </div>
-                    <p class="verse-desc">Ini menegaskan bahwa pernikahan adalah ikatan suci yang ditetapkan Allah (menjadi satu daging) dan bersifat kekal.</p>
+        <section class="countdown-section">
+            <h2 class="section-title">Save the Date</h2>
+            <div id="countdown" class="countdown-container">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <p>Hari</p>
                 </div>
-            </section>
-
-            <section class="countdown-section">
-                <h2 class="section-title">Save the Date</h2>
-                <div id="countdown" class="countdown-container">
-                    <div class="time-box"><span id="days">00</span><p>Hari</p></div>
-                    <div class="time-box"><span id="hours">00</span><p>Jam</p></div>
-                    <div class="time-box"><span id="minutes">00</span><p>Menit</p></div>
-                    <div class="time-box"><span id="seconds">00</span><p>Detik</p></div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <p>Jam</p>
                 </div>
-            </section>
-
-            <section class="details-section">
-                <div class="event-card">
-                    <h3>Pemberkatan & Resepsi</h3>
-                    <p class="time">26 April 2026 | 13.00 WIB</p>
-                    <p class="address">📍 Jl. Raya Jelidro IV No.2, Sambikerep, Surabaya</p>
-                    <a href="https://maps.app.goo.gl/..." class="map-link-btn">Buka Google Maps</a>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <p>Menit</p>
                 </div>
-            </section>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <p>Detik</p>
+                </div>
+            </div>
+        </section>
 
-            <section class="gift-section">
-                <div class="gift-card">
-                    <h2 class="section-title">Wedding Gift</h2>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" class="bca-logo">
+        <section class="details-section">
+            <h2 class="section-title">LOKASI ACARA</h2>
+            <div class="event-card">
+                <h3>Akad Nikah / Pemberkatan</h3>
+                <p class="time">Pukul: 13.00 WIB - Selesai</p>
+                <p class="address">📍 Jl. Raya Jelidro IV No.2, Sambikerep, Surabaya</p>
+                <a href="https://maps.app.goo.gl/..." target="_blank" class="map-link-btn">Buka di Map</a>
+            </div>
+        </section>
+
+        <section class="gift-section">
+            <div class="gift-card">
+                <h2 class="section-title">Wedding Gift</h2>
+                <div class="bank-info">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="Logo BCA" class="bca-logo">
                     <p class="account-number">8620684253</p>
                     <p class="account-name">A/N HENDRA KATUMHOIT</p>
-                    <button class="copy-btn" onclick="copyAccount()">Salin Rekening</button>
+                    <button class="copy-btn" onclick="copyAccount()">Salin No. Rekening</button>
                 </div>
-                <p class="closing-text">"Merupakan suatu kehormatan bagi kami jika Bapak/Ibu/Saudara/i berkenan hadir."</p>
-            </section>
+            </div>
+            <div class="closing-message">
+                <p>"Merupakan suatu kehormatan bagi kami jika Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu."</p>
+            </div>
+        </section>
 
-            <section class="rsvp-section">
-                <a href="https://wa.me/6285743190790" class="rsvp-btn">Konfirmasi Kehadiran</a>
-            </section>
-        </div>
+        <section class="rsvp-section">
+            <a href="https://wa.me/6285743190790?text=Halo..." class="rsvp-btn">Konfirmasi Kehadiran</a>
+        </section>
     </div>
+</div>
 
-    <audio id="wedding-audio" loop>
-        <source src="Wedding-Song.mp3" type="audio/mp3">
-    </audio>
-    <div id="music-control" onclick="toggleMusic()" style="display:none;">
-        <span id="music-icon">🎵</span>
-    </div>
+<audio id="wedding-audio" loop>
+    <source src="Wedding-Song.mp3" type="audio/mp3">
+</audio>
 
-    <script src="script.js"></script>
+<div id="music-control" onclick="toggleMusic()">
+    <span id="music-icon">🎵</span>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
