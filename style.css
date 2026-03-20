@@ -1,75 +1,207 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* --- RESET DATA DAN FONT --- */
+* {
     margin: 0;
-    text-align: center;
-    color: #333;
-    background-color: #f9f9f9;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.hero {
-    height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('foto-background.jpg');
+body {
+    font-family: 'Poppins', sans-serif; /* Font untuk teks biasa */
+    background-color: #fcfcfc;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden; /* Mencegah halaman geser kanan-kiri */
+}
+
+/* --- JUDUL & TIPOGRAFI --- */
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif; /* Font artistik untuk judul */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #8c7355;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* --- SECTION 1: HERO COVER (Fix Teks Bertumpuk) --- */
+.hero-section {
+    width: 100%;
+    min-height: 80vh; /* Sedikit lebih pendek dari tinggi layar agar countdown kelihatan */
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/hero-bg.jpg'); /* GANTI FOTO ANDA */
     background-size: cover;
     background-position: center;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     color: white;
-}
-
-.hero h1 { font-weight: 300; font-size: 2rem; }
-.hero h2 { font-size: 4rem; margin: 10px 0; }
-
-.details { padding: 50px 20px; }
-.info-box {
-    border: 1px solid #ddd;
-    margin: 20px auto;
     padding: 20px;
-    max-width: 400px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.btn {
-    display: inline-block;
-    padding: 15px 30px;
-    background-color: #d4a373;
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    transition: 0.3s;
+.hero-content {
+    max-width: 90%;
 }
 
-.btn:hover { background-color: #bc8a5f; }
+.pre-title {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
 
+.couple-names {
+    font-size: 2.5rem; /* Ukuran font diperkecil agar pas di HP */
+    line-height: 1.2;
+    margin: 15px 0;
+    font-weight: 700;
+}
+
+.event-date-top {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+/* --- SECTION 2: COUNTDOWN (Fix Kotak Bertumpuk) --- */
 .countdown-section {
-    background-color: #fff;
-    padding: 40px 0;
+    padding: 40px 20px;
+    background: white;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.05); /* Sedikit bayangan */
+    margin-top: -30px; /* Membuat countdown agak naik sedikit */
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    z-index: 10;
 }
 
-#countdown {
+.countdown-container {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 10px; /* Jarak antar kotak pas */
+    width: 100%;
+    max-width: 400px; /* Batas lebar maksimal */
+    margin: 0 auto; /* Tengah-tengah */
 }
 
 .time-box {
-    background: #d4a373;
+    flex: 1; /* Setiap kotak punya lebar yang sama otomatis */
+    background: #d4a373; /* Warna asli kamu */
     color: white;
-    padding: 15px;
+    text-align: center;
+    padding: 10px 5px; /* Padding minimalis agar muat di HP kecil */
     border-radius: 8px;
-    min-width: 60px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .time-box span {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.6rem; /* Ukuran angka pas */
+    font-weight: 700;
     display: block;
+    line-height: 1.1;
 }
 
 .time-box p {
-    margin: 0;
+    font-size: 0.7rem; /* Label bahasa Indonesia pas */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 3px;
+    font-weight: 300;
+}
+
+/* --- SECTION 3: LOKASI ACARA (Fix Jarak Teks) --- */
+.details-section {
+    padding: 50px 20px;
+}
+
+.event-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px; /* Jarak antar kartu acara */
+    text-align: center;
+    border: 1px solid #f0f0f0;
+}
+
+.event-card h3 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.event-card .time {
+    font-weight: 600;
+    color: #d4a373;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.event-card .address {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.icon { margin-right: 5px; color: #8c7355; }
+
+.map-link-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    background-color: transparent;
+    border: 1px solid #d4a373;
+    color: #d4a373;
+    text-decoration: none;
+    border-radius: 20px;
     font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.map-link-btn:hover {
+    background-color: #d4a373;
+    color: white;
+}
+
+/* --- SECTION 4: RSVP & TOMBOL --- */
+.rsvp-section {
+    padding: 30px 20px 60px 20px;
+    text-align: center;
+}
+
+.rsvp-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: #d4a373; /* Warna asli kamu */
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 6px 15px rgba(212, 163, 115, 0.4);
+    transition: 0.3s transform, 0.3s box-shadow;
+}
+
+.rsvp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 163, 115, 0.5);
+}
+
+/* --- RESPONSIVE ADJUSTMENTS (Sangat Penting untuk HP Kecil) --- */
+@media (max-width: 360px) {
+    .couple-names {
+        font-size: 2rem;
+    }
+    
+    .countdown-container {
+        gap: 5px;
+    }
+    
+    .time-box span {
+        font-size: 1.3rem;
+    }
+    
+    .time-box p {
+        font-size: 0.6rem;
+    }
 }
