@@ -1,37 +1,47 @@
 * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 body { font-family: 'Poppins', sans-serif; background: #000; overflow-x: hidden; }
 
-/* COVER */
-#cover-overlay { position: fixed; width: 100%; height: 100%; z-index: 1000; display: flex; justify-content: center; align-items: center; text-align: center; transition: 1s opacity; }
+/* --- 1. TANGGAL 3D BOLD --- */
+.date-3d-bold {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: #fff;
+    text-shadow: 2px 2px 0px #d4a373, 4px 4px 8px rgba(0,0,0,0.8);
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+/* --- 2. LATAR BELAKANG WEDDING (FLORAL EMAS) --- */
+.wedding-theme-wrapper {
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                url('https://www.transparenttextures.com/patterns/cream-paper.png'),
+                url('https://i.ibb.co/L5M46P6/floral-bg.png'); /* Pattern bunga halus */
+    background-color: #fffaf0;
+    background-attachment: fixed;
+    border-top: 4px solid #d4a373;
+}
+
+/* --- 3. FIX SPACE (MEMPERDEKAT JARAK) --- */
+.page-section { min-height: 80vh; /* Dikurangi dari 100vh agar lebih rapat */ display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+.content-section { padding: 20px 0; /* Dikurangi dari 60px agar jarak atas-bawah pendek */ width: 100%; display: flex; flex-direction: column; align-items: center; }
+.card { margin: 10px auto; padding: 20px; width: 85%; } /* Margin diperkecil */
+
+/* STYLE LAINNYA */
+#cover-overlay { position: fixed; width: 100%; height: 100%; z-index: 1000; display: flex; justify-content: center; align-items: center; text-align: center; }
 .bg-video-cover { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
 .bg-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: -1; }
-.cover-content { color: #fff; }
-.open-btn { background: #d4a373; color: #fff; padding: 12px 35px; border-radius: 25px; border: none; cursor: pointer; font-weight: bold; }
-
-/* BUBBLE FALLING TEXT */
-.bubble-font { font-family: 'Bungee', cursive; font-size: 1.5rem; display: flex; justify-content: center; width: 100%; position: absolute; top: 15%; z-index: 100; }
-.glow-rainbow-char { opacity: 0; transform: translateY(-200px); color: #fff; margin: 0 3px; display: inline-block; }
-.char-falling { animation: fallFromTop 1s ease-out forwards; }
+.bubble-font { font-family: 'Bungee', cursive; font-size: 1.4rem; display: flex; justify-content: center; width: 100%; position: absolute; top: 10%; z-index: 100; }
+.glow-rainbow-char { opacity: 0; transform: translateY(-100px); color: #fff; margin: 0 2px; }
+.char-falling { animation: fallFromTop 0.8s ease-out forwards; }
 @keyframes fallFromTop { to { opacity: 1; transform: translateY(0); } }
-.rainbow-neon { animation: neonRainbowShift 4s infinite alternate; }
-@keyframes neonRainbowShift { 0% { color: #2ecc71; text-shadow: 0 0 10px #2ecc71; } 50% { color: #f1c40f; text-shadow: 0 0 20px #f1c40f; } 100% { color: #e74c3c; text-shadow: 0 0 10px #e74c3c; } }
-
-/* PAGE SECTIONS */
-.page-section { min-height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
-.wedding-theme-wrapper { background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://www.transparenttextures.com/patterns/floral-paper.png'); background-color: #fdfaf6; background-attachment: fixed; }
-
-/* CARDS */
-.card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #d4a373; margin: 20px auto; max-width: 90%; color: #1a1a1a; text-align: center; }
-.title-3d { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px; }
-.whatsapp-btn { background: #25d366; color: white; border: none; padding: 15px; border-radius: 30px; width: 100%; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; }
-.form-rsvp input, .form-rsvp select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ddd; }
-
-/* SLIDESHOW */
+.rainbow-neon { animation: neonRainbowShift 3s infinite alternate; }
+@keyframes neonRainbowShift { 0% { color: #2ecc71; } 50% { color: #f1c40f; } 100% { color: #e74c3c; } }
 .slideshow-container { position: absolute; width: 100%; height: 100%; z-index: 1; }
 .mySlides img { width: 100%; height: 100%; object-fit: cover; }
-.hero-text { position: absolute; z-index: 5; text-align: center; width: 100%; }
+.hero-text { position: absolute; z-index: 5; text-align: center; width: 100%; top: 50%; transform: translateY(-50%); }
 .couple-names-full { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: #fff; text-shadow: 2px 2px 5px #000; }
-
-.reveal { opacity: 0; transform: translateY(40px); transition: 1.2s all ease; }
+.reveal { opacity: 0; transform: translateY(20px); transition: 0.8s all ease; }
 .reveal.active { opacity: 1; transform: translateY(0); }
-#music-control { position: fixed; bottom: 20px; right: 20px; background: #d4a373; width: 50px; height: 50px; border-radius: 50%; display: none; justify-content: center; align-items: center; z-index: 1000; color: #fff; cursor: pointer; }
+.whatsapp-btn { background: #25d366; color: white; border: none; padding: 12px; border-radius: 20px; width: 100%; font-weight: bold; cursor: pointer; }
+#music-control { position: fixed; bottom: 20px; right: 20px; background: #d4a373; width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center; align-items: center; z-index: 1000; color: #fff; }
