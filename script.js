@@ -1,13 +1,17 @@
-// 1. COUNTDOWN
-const weddingDate = new Date("April 26, 2026 13:00:00").getTime();
-setInterval(() => {
-    const now = new Date().getTime();
-    const d = weddingDate - now;
-    document.getElementById("days").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    document.getElementById("minutes").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("seconds").innerText = Math.floor((d % (1000 * 60)) / 1000);
-}, 1000);
+// 1. OPEN INVITATION
+function openInvitation() {
+    const audio = document.getElementById("wedding-audio");
+    document.getElementById("cover-overlay").style.opacity = "0";
+    
+    setTimeout(() => {
+        document.getElementById("cover-overlay").style.display = "none";
+        document.getElementById("main-invitation").style.display = "block";
+        document.getElementById("music-control").style.display = "flex";
+        showSlides();
+        checkReveal();
+        if(audio) audio.play();
+    }, 1000);
+}
 
 // 2. SLIDESHOW
 let sIndex = 0;
@@ -20,42 +24,42 @@ function showSlides() {
     setTimeout(showSlides, 4000);
 }
 
-// 3. REVEAL ON SCROLL (ANIMASI PPT)
-function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
-    for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        if (elementTop < windowHeight - 100) {
-            reveals[i].classList.add("active");
-        }
-    }
+// 3. REVEAL ANIMATION
+function checkReveal() {
+    let reveals = document.querySelectorAll(".reveal");
+    reveals.forEach(r => {
+        let windowHeight = window.innerHeight;
+        let elementTop = r.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) r.classList.add("active");
+    });
 }
-window.addEventListener("scroll", reveal);
+window.addEventListener("scroll", checkReveal);
 
-// 4. OPEN INVITATION
-const audio = document.getElementById("wedding-audio");
-function openInvitation() {
-    document.getElementById("cover-overlay").style.opacity = "0";
-    setTimeout(() => {
-        document.getElementById("cover-overlay").style.display = "none";
-        document.getElementById("main-invitation").style.display = "block";
-        document.getElementById("music-control").style.display = "flex";
-        showSlides();
-        reveal(); // Trigger animasi pertama
-        if(audio) audio.play();
-        
-        // AUTO SCROLL SEDIKIT AGAR USER TAHU BISA DI SCROLL
-        window.scrollBy(0, 100);
-    }, 1000);
+// 4. RSVP WHATSAPP
+function sendRSVP() {
+    const name = document.getElementById('rsvp-name').value;
+    const status = document.getElementById('rsvp-status').value;
+    const count = document.getElementById('rsvp-count').value || "1";
+
+    if(!name) { alert("Tolong isi nama kawan!"); return; }
+
+    const message = `Halo Hendra & Destania, saya ${name}.\n\nKonfirmasi: *${status}*\nJumlah Tamu: ${count} orang.\n\nTerima kasih!`;
+    window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(message)}`, '_blank');
 }
 
+// 5. MUSIC CONTROL
 function toggleMusic() {
-    if (audio.paused) { audio.play(); document.getElementById("music-icon").innerText = "🎵"; }
-    else { audio.pause(); document.getElementById("music-icon").innerText = "🔇"; }
+    const audio = document.getElementById("wedding-audio");
+    if (audio.paused) {
+        audio.play();
+        document.getElementById("music-icon").innerText = "🎵";
+    } else {
+        audio.pause();
+        document.getElementById("music-icon").innerText = "🔇";
+    }
 }
 
 function copyAccount() {
     navigator.clipboard.writeText("8620684253");
-    alert("Rekening disalin!");
+    alert("Nomor rekening BCA berhasil disalin!");
 }
