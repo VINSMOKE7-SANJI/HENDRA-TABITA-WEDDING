@@ -10,7 +10,7 @@ function openInvitation() {
         showSlides();
         checkReveal();
         triggerFallingText();
-    }, 1000);
+    }, 800);
 }
 
 function prepareFallingText() {
@@ -32,8 +32,8 @@ function triggerFallingText() {
     chars.forEach((span, i) => {
         setTimeout(() => {
             span.classList.add('char-falling');
-            setTimeout(() => span.classList.add('rainbow-neon'), 1000);
-        }, i * 150);
+            setTimeout(() => span.classList.add('rainbow-neon'), 800);
+        }, i * 120);
     });
 }
 
@@ -41,7 +41,7 @@ function sendRSVP() {
     const name = document.getElementById('rsvp-name').value;
     const status = document.getElementById('rsvp-status').value;
     const count = document.getElementById('rsvp-count').value || "1";
-    if(!name) { alert("Isi nama dulu kawan!"); return; }
+    if(!name) { alert("Nama jangan kosong kawan!"); return; }
     const msg = `Halo Hendra & Destania, saya ${name}.\nKonfirmasi: *${status}*\nJumlah: ${count} orang.`;
     window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(msg)}`, '_blank');
 }
@@ -53,13 +53,13 @@ function showSlides() {
     sIndex++;
     if (sIndex > s.length) sIndex = 1;
     if(s[sIndex-1]) s[sIndex-1].style.display = "block";
-    setTimeout(showSlides, 4000);
+    setTimeout(showSlides, 3500);
 }
 
 function checkReveal() {
     let reveals = document.querySelectorAll(".reveal");
     reveals.forEach(r => {
-        if (r.getBoundingClientRect().top < window.innerHeight - 100) r.classList.add("active");
+        if (r.getBoundingClientRect().top < window.innerHeight - 50) r.classList.add("active");
     });
 }
 window.addEventListener("scroll", checkReveal);
