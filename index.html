@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Undangan Pernikahan - HENDRA & DESTANIA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,86 +24,76 @@
     </div>
 
     <div id="main-invitation" style="display: none;">
-        <div class="main-background">
+        
+        <section class="reveal">
             <div class="slideshow-container">
-                <div class="mySlides fade"><img src="Slide1.jpg"></div>
-                <div class="mySlides fade"><img src="Slide2.jpg"></div>
-                <div class="mySlides fade"><img src="Slide3.jpg"></div>
-                <div class="mySlides fade"><img src="Slide4.jpg"></div>
-                <div class="mySlides fade"><img src="Slide5.jpg"></div>
+                <div class="mySlides"><img src="Slide1.jpg"></div>
+                <div class="mySlides"><img src="Slide2.jpg"></div>
+                <div class="mySlides"><img src="Slide3.jpg"></div>
+                <div class="mySlides"><img src="Slide4.jpg"></div>
+                <div class="mySlides"><img src="Slide5.jpg"></div>
+                <div class="slide-overlay"></div>
             </div>
-        </div>
+            <div class="hero-text">
+                <p>THE WEDDING OF</p>
+                <h1 class="couple-names">Hendra & Destania</h1>
+                <p class="date-main">26 . 04 . 2026</p>
+            </div>
+        </section>
 
-        <div class="main-content-wrapper">
-            <header class="hero-section">
-                <div class="hero-content">
-                    <p class="pre-title">UNDANGAN PERNIKAHAN</p>
-                    <h1 class="couple-names">HENDRA & DESTANIA</h1>
-                    <p class="event-date-top">26 . 04 . 2026</p>
+        <section class="content-section reveal">
+            <div class="card">
+                <p class="greeting">"Dengan sukacita kami mengundang Anda"</p>
+                <div class="verse">
+                    <p>"Apa yang dipersatukan Allah, tidak boleh diceraikan manusia."</p>
+                    <span>(Matius 19:6)</span>
                 </div>
-            </header>
+            </div>
+        </section>
 
-            <section class="opening-message">
-                <div class="message-card">
-                    <p class="greeting">"Dengan penuh sukacita saya ucapkan terima kasih untuk para tamu undangan"</p>
-                    <div class="verse">
-                        <p>"Apa yang sudah dipersatukan Allah tidak boleh diceraikan manusia"</p>
-                        <span>(Matius 19:6, Markus 10:9)</span>
-                    </div>
-                    <p class="verse-desc">Ini menegaskan bahwa pernikahan adalah ikatan suci yang ditetapkan Allah dan bersifat kekal.</p>
-                </div>
-            </section>
+        <section class="content-section reveal">
+            <h2 class="title-3d">Save the Date</h2>
+            <div id="countdown" class="countdown-container">
+                <div class="time-box"><span id="days">00</span><p>Hari</p></div>
+                <div class="time-box"><span id="hours">00</span><p>Jam</p></div>
+                <div class="time-box"><span id="minutes">00</span><p>Menit</p></div>
+                <div class="time-box"><span id="seconds">00</span><p>Detik</p></div>
+            </div>
+        </section>
 
-            <section class="countdown-section">
-                <h2 class="section-title">Save the Date</h2>
-                <div id="countdown" class="countdown-container">
-                    <div class="time-box"><span id="days">00</span><p>Hari</p></div>
-                    <div class="time-box"><span id="hours">00</span><p>Jam</p></div>
-                    <div class="time-box"><span id="minutes">00</span><p>Menit</p></div>
-                    <div class="time-box"><span id="seconds">00</span><p>Detik</p></div>
-                </div>
-            </section>
+        <section class="content-section reveal">
+            <h2 class="title-3d">Lokasi Acara</h2>
+            <div class="card">
+                <h3>Pemberkatan</h3>
+                <p>13.00 WIB - Selesai</p>
+                <p>📍 Jl. Raya Jelidro IV No.2, Surabaya</p>
+                <a href="#" class="btn-map">Google Maps</a>
+            </div>
+            <div class="card">
+                <h3>Resepsi</h3>
+                <p>15.00 WIB - Selesai</p>
+                <p>📍 Gg. Mawar 08 No.Kav 71, Surabaya</p>
+                <a href="#" class="btn-map">Google Maps</a>
+            </div>
+        </section>
 
-            <section class="details-section">
-                <h2 class="section-title">LOKASI ACARA</h2>
-                <div class="event-card">
-                    <h3>Pemberkatan Nikah</h3>
-                    <p class="time">Pukul: 13.00 WIB - Selesai</p>
-                    <p class="address">📍 Jl. Raya Jelidro IV No.2, Sambikerep, Surabaya</p>
-                    <a href="https://maps.app.goo.gl/..." target="_blank" class="map-link-btn">Lihat Lokasi</a>
-                </div>
+        <section class="content-section reveal">
+            <div class="card gift-card">
+                <h2 class="title-3d">Wedding Gift</h2>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" width="100">
+                <p class="acc-num">8620684253</p>
+                <p>A/N HENDRA KATUMHOIT</p>
+                <button class="btn-map" onclick="copyAccount()">Salin Rekening</button>
+            </div>
+        </section>
 
-                <div class="event-card">
-                    <h3>Resepsi Pernikahan</h3>
-                    <p class="time">Pukul: 15.00 WIB - Selesai</p>
-                    <p class="address">📍 Gg. Mawar 08 No.Kav 71, Tubanan, Surabaya</p>
-                    <a href="https://maps.app.goo.gl/..." target="_blank" class="map-link-btn">Lihat Lokasi</a>
-                </div>
-            </section>
-
-            <section class="gift-section">
-                <div class="gift-card">
-                    <h2 class="section-title">Wedding Gift</h2>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" class="bca-logo">
-                    <p class="account-number">8620684253</p>
-                    <p class="account-name">A/N HENDRA KATUMHOIT</p>
-                    <button class="copy-btn" onclick="copyAccount()">Salin Rekening</button>
-                </div>
-                <p class="closing-text">"Merupakan suatu kehormatan bagi kami jika Bapak/Ibu/Saudara/i berkenan hadir."</p>
-            </section>
-
-            <section class="rsvp-section">
-                <a href="https://wa.me/6285743190790" class="rsvp-btn">Konfirmasi Kehadiran</a>
-            </section>
-        </div>
+        <footer class="reveal">
+            <p>Terima Kasih atas Doa Restunya</p>
+        </footer>
     </div>
 
-    <audio id="wedding-audio" loop>
-        <source src="Weddingsound.mp3" type="audio/mp3">
-    </audio>
-    <div id="music-control" onclick="toggleMusic()" style="display:none;">
-        <span id="music-icon">🎵</span>
-    </div>
+    <audio id="wedding-audio" loop><source src="Weddingsound.mp3" type="audio/mp3"></audio>
+    <div id="music-control" onclick="toggleMusic()"><span id="music-icon">🎵</span></div>
 
     <script src="script.js"></script>
 </body>
