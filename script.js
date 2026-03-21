@@ -1,35 +1,40 @@
-// TANGGAL HARI H (26 April 2026)
+// 1. COUNTDOWN
 const weddingDate = new Date("April 26, 2026 13:00:00").getTime();
-
-setInterval(function() {
+setInterval(() => {
     const now = new Date().getTime();
-    const distance = weddingDate - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById("days").innerHTML = days;
-    document.getElementById("hours").innerHTML = hours;
-    document.getElementById("minutes").innerHTML = minutes;
-    document.getElementById("seconds").innerHTML = seconds;
+    const d = weddingDate - now;
+    document.getElementById("days").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    document.getElementById("minutes").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("seconds").innerText = Math.floor((d % (1000 * 60)) / 1000);
 }, 1000);
 
-// SLIDESHOW
-let slideIndex = 0;
+// 2. SLIDESHOW
+let sIndex = 0;
 function showSlides() {
-    let slides = document.getElementsByClassName("mySlides");
-    for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
-    slideIndex++;
-    if (slideIndex > slides.length) {slideIndex = 1}
-    if(slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
-    setTimeout(showSlides, 3000);
+    let s = document.getElementsByClassName("mySlides");
+    for (let i = 0; i < s.length; i++) s[i].style.display = "none";
+    sIndex++;
+    if (sIndex > s.length) sIndex = 1;
+    if(s[sIndex-1]) s[sIndex-1].style.display = "block";
+    setTimeout(showSlides, 4000);
 }
 
-// BUKA UNDANGAN
-const audio = document.getElementById("wedding-audio");
+// 3. REVEAL ON SCROLL (ANIMASI PPT)
+function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+    for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var elementTop = reveals[i].getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) {
+            reveals[i].classList.add("active");
+        }
+    }
+}
+window.addEventListener("scroll", reveal);
 
+// 4. OPEN INVITATION
+const audio = document.getElementById("wedding-audio");
 function openInvitation() {
     document.getElementById("cover-overlay").style.opacity = "0";
     setTimeout(() => {
@@ -37,25 +42,20 @@ function openInvitation() {
         document.getElementById("main-invitation").style.display = "block";
         document.getElementById("music-control").style.display = "flex";
         showSlides();
-        // Paksa Audio play
-        if (audio) {
-            audio.muted = false;
-            audio.play().catch(e => console.log("Audio play error:", e));
-        }
+        reveal(); // Trigger animasi pertama
+        if(audio) audio.play();
+        
+        // AUTO SCROLL SEDIKIT AGAR USER TAHU BISA DI SCROLL
+        window.scrollBy(0, 100);
     }, 1000);
 }
 
 function toggleMusic() {
-    if (audio.paused) {
-        audio.play();
-        document.getElementById("music-icon").innerText = "🎵";
-    } else {
-        audio.pause();
-        document.getElementById("music-icon").innerText = "🔇";
-    }
+    if (audio.paused) { audio.play(); document.getElementById("music-icon").innerText = "🎵"; }
+    else { audio.pause(); document.getElementById("music-icon").innerText = "🔇"; }
 }
 
 function copyAccount() {
     navigator.clipboard.writeText("8620684253");
-    alert("Nomor rekening disalin!");
+    alert("Rekening disalin!");
 }
