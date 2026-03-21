@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Undangan Pernikahan - HENDRA & DESTANIA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <div class="bg-overlay"></div>
         <div class="cover-content">
             <p>UNDANGAN PERNIKAHAN</p>
-            <h1>HENDRA KATUMHOIT <br>&<br> DESTANIA TABITA SIFI</h1>
+            <h1 class="glow-rainbow">HENDRA KATUMHOIT <br>&<br> DESTANIA TABITA SIFI</h1>
             <p class="to-guest">Kepada Bapak/Ibu/Saudara/i:</p>
             <h2 id="guest-name">Tamu Undangan</h2>
             <button class="open-btn" onclick="openInvitation()">Buka Undangan</button>
@@ -27,72 +27,86 @@
         
         <section class="reveal">
             <div class="slideshow-container">
-                <div class="mySlides"><img src="Slide1.jpg"></div>
-                <div class="mySlides"><img src="Slide2.jpg"></div>
-                <div class="mySlides"><img src="Slide3.jpg"></div>
-                <div class="mySlides"><img src="Slide4.jpg"></div>
-                <div class="mySlides"><img src="Slide5.jpg"></div>
+                <div class="mySlides fade"><img src="Slide1.jpg"></div>
+                <div class="mySlides fade"><img src="Slide2.jpg"></div>
+                <div class="mySlides fade"><img src="Slide3.jpg"></div>
+                <div class="mySlides fade"><img src="Slide4.jpg"></div>
+                <div class="mySlides fade"><img src="Slide5.jpg"></div>
                 <div class="slide-overlay"></div>
             </div>
             <div class="hero-text">
-                <p>THE WEDDING OF</p>
-                <h1 class="couple-names">Hendra & Destania</h1>
-                <p class="date-main">26 . 04 . 2026</p>
+                <p class="glow-rainbow small">THE WEDDING OF</p>
+                <h1 class="couple-names-full">Hendra Katumhoit 🤎 Destania Tabita Sifi</h1>
+                <p class="glow-rainbow date-font">26 . 04 . 2026</p>
             </div>
         </section>
 
-        <section class="content-section reveal">
-            <div class="card">
-                <p class="greeting">"Dengan sukacita kami mengundang Anda"</p>
-                <div class="verse">
-                    <p>"Apa yang dipersatukan Allah, tidak boleh diceraikan manusia."</p>
-                    <span>(Matius 19:6)</span>
+        <div class="wedding-theme-wrapper">
+            
+            <section class="content-section reveal">
+                <div class="card">
+                    <p class="greeting">"Dengan sukacita kami mengundang Anda"</p>
+                    <div class="verse">
+                        <p>"Apa yang sudah dipersatukan Allah tidak boleh diceraikan manusia"</p>
+                        <span>(Matius 19:6)</span>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="content-section reveal">
-            <h2 class="title-3d">Save the Date</h2>
-            <div id="countdown" class="countdown-container">
-                <div class="time-box"><span id="days">00</span><p>Hari</p></div>
-                <div class="time-box"><span id="hours">00</span><p>Jam</p></div>
-                <div class="time-box"><span id="minutes">00</span><p>Menit</p></div>
-                <div class="time-box"><span id="seconds">00</span><p>Detik</p></div>
-            </div>
-        </section>
+            <section class="content-section reveal">
+                <h2 class="title-3d">Waktu & Lokasi</h2>
+                <div class="card">
+                    <h3>Pemberkatan</h3>
+                    <p>13.00 WIB - Selesai</p>
+                    <p>📍 Jl. Raya Jelidro IV No.2, Surabaya</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn-map">Lihat Lokasi</a>
+                </div>
+                <div class="card">
+                    <h3>Resepsi</h3>
+                    <p>15.00 WIB - Selesai</p>
+                    <p>📍 Gg. Mawar 08 No.Kav 71, Surabaya</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn-map">Lihat Lokasi</a>
+                </div>
+            </section>
 
-        <section class="content-section reveal">
-            <h2 class="title-3d">Lokasi Acara</h2>
-            <div class="card">
-                <h3>Pemberkatan</h3>
-                <p>13.00 WIB - Selesai</p>
-                <p>📍 Jl. Raya Jelidro IV No.2, Surabaya</p>
-                <a href="#" class="btn-map">Google Maps</a>
-            </div>
-            <div class="card">
-                <h3>Resepsi</h3>
-                <p>15.00 WIB - Selesai</p>
-                <p>📍 Gg. Mawar 08 No.Kav 71, Surabaya</p>
-                <a href="#" class="btn-map">Google Maps</a>
-            </div>
-        </section>
+            <section class="content-section reveal">
+                <div class="card rsvp-card">
+                    <h2 class="title-3d">Konfirmasi Kehadiran</h2>
+                    <div class="form-rsvp">
+                        <input type="text" id="rsvp-name" placeholder="Nama Lengkap" required>
+                        <select id="rsvp-status">
+                            <option value="Hadir">Ya, Saya Akan Hadir</option>
+                            <option value="Tidak Hadir">Maaf, Berhalangan Hadir</option>
+                        </select>
+                        <input type="number" id="rsvp-count" placeholder="Jumlah Tamu (Orang)" min="1">
+                        <button class="whatsapp-btn" onclick="sendRSVP()">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> 
+                            Kirim Konfirmasi via WA
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-        <section class="content-section reveal">
-            <div class="card gift-card">
-                <h2 class="title-3d">Wedding Gift</h2>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" width="100">
-                <p class="acc-num">8620684253</p>
-                <p>A/N HENDRA KATUMHOIT</p>
-                <button class="btn-map" onclick="copyAccount()">Salin Rekening</button>
-            </div>
-        </section>
+            <section class="content-section reveal">
+                <div class="card gift-card">
+                    <h2 class="title-3d">Wedding Gift</h2>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" width="120">
+                    <p class="acc-number">8620684253</p>
+                    <p>A/N HENDRA KATUMHOIT</p>
+                    <button class="btn-map" onclick="copyAccount()">Salin Rekening</button>
+                </div>
+            </section>
 
-        <footer class="reveal">
-            <p>Terima Kasih atas Doa Restunya</p>
-        </footer>
+            <footer>
+                <p>Terima Kasih atas Doa Restunya</p>
+                <h2 class="glow-rainbow small">Hendra & Destania</h2>
+            </footer>
+        </div>
     </div>
 
-    <audio id="wedding-audio" loop><source src="Weddingsound.mp3" type="audio/mp3"></audio>
+    <audio id="wedding-audio" loop>
+        <source src="Weddingsound.mp3" type="audio/mp3">
+    </audio>
     <div id="music-control" onclick="toggleMusic()"><span id="music-icon">🎵</span></div>
 
     <script src="script.js"></script>
