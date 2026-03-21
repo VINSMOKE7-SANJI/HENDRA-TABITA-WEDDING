@@ -1,7 +1,7 @@
-// 1. Perbaikan Tanggal (April = Indeks 3)
+// TANGGAL HARI H (26 April 2026)
 const weddingDate = new Date("April 26, 2026 13:00:00").getTime();
 
-const x = setInterval(function() {
+setInterval(function() {
     const now = new Date().getTime();
     const distance = weddingDate - now;
 
@@ -10,18 +10,13 @@ const x = setInterval(function() {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById("days").innerHTML = days < 10 ? "0"+days : days;
-    document.getElementById("hours").innerHTML = hours < 10 ? "0"+hours : hours;
-    document.getElementById("minutes").innerHTML = minutes < 10 ? "0"+minutes : minutes;
-    document.getElementById("seconds").innerHTML = seconds < 10 ? "0"+seconds : seconds;
-
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("countdown").innerHTML = "HARI H TELAH TIBA";
-    }
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    document.getElementById("seconds").innerHTML = seconds;
 }, 1000);
 
-// 2. Logika Slideshow
+// SLIDESHOW
 let slideIndex = 0;
 function showSlides() {
     let slides = document.getElementsByClassName("mySlides");
@@ -32,7 +27,7 @@ function showSlides() {
     setTimeout(showSlides, 3000);
 }
 
-// 3. Buka Undangan & Musik
+// BUKA UNDANGAN
 const audio = document.getElementById("wedding-audio");
 
 function openInvitation() {
@@ -41,10 +36,12 @@ function openInvitation() {
         document.getElementById("cover-overlay").style.display = "none";
         document.getElementById("main-invitation").style.display = "block";
         document.getElementById("music-control").style.display = "flex";
-        showSlides(); // Start slideshow setelah dibuka
-        if (audio) audio.play();
-        const v = document.getElementById("bg-video");
-        if(v) v.play();
+        showSlides();
+        // Paksa Audio play
+        if (audio) {
+            audio.muted = false;
+            audio.play().catch(e => console.log("Audio play error:", e));
+        }
     }, 1000);
 }
 
@@ -60,5 +57,5 @@ function toggleMusic() {
 
 function copyAccount() {
     navigator.clipboard.writeText("8620684253");
-    alert("Nomor rekening berhasil disalin!");
+    alert("Nomor rekening disalin!");
 }
