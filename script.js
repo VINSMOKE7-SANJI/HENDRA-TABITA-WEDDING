@@ -1,6 +1,8 @@
 // --- KONFIGURASI ---
 const audio = document.getElementById("wedding-audio");
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRvbCobJ5VKCt2HEZCw2Xi7qaSgTTpFlszbrclTrVWkD1CAz3QVcWaFAl5nE_baQDTPC7hL72WaAnmj/pub?output=csv';
+
+// LINK CSV TERBARU (Sesuai screenshot konfirmasi publish kamu)
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRvbCobJ5VKCt2HEZCw2Xi7qaSgTTpFlszbrclTrVWkD1CAz3QVcWaFAI5nE_baQDTPC7hL72WaAnmj/pub?gid=618440573&single=true&output=csv';
 
 // 1. FUNGSI BUKA UNDANGAN
 function openInvitation() {
@@ -15,33 +17,46 @@ function openInvitation() {
         musicBtn.style.display = "flex";
         if (audio) audio.play();
         
-        // Jalankan semua fitur
+        // Jalankan fitur pendukung
         startSlideshow();
-        setInterval(updateCountdown, 1000);
-        fetchWishes();
+        setInterval(updateCountdown, 1000); 
+        fetchWishes(); // Jalankan notifikasi ucapan
     }, 1000);
 }
 
-// 2. AMBIL UCAPAN DARI GOOGLE SHEETS
+// 2. AMBIL DATA DARI GOOGLE SHEETS
 async function fetchWishes() {
     try {
+        // Tambahkan timestamp agar data selalu fresh (bukan cache)
         const response = await fetch(csvUrl + '&t=' + new Date().getTime());
         const data = await response.text();
+        
+        // Pecah baris CSV
         const rows = data.split(/\r?\n/).slice(1).filter(r => r.trim() !== "");
         
         if (rows.length === 0) return;
 
         let i = 0;
         setInterval(() => {
-            const columns = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            if (columns.length >= 3) {
-                // SESUAI SCREENSHOT: Kolom 1 = Pesan, Kolom 2 = Nama
-                let wish = columns[1].replace(/^"|"$/g, "").trim();
-                let name = columns[2].replace(/^"|"$/g, "").trim();
+            const row = rows[i];
+            // Split kolom dengan aman
+            const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+
+            if (columns && columns.length >= 3) {
+                // Urutan kolom di Sheets kamu:
+                // Index 1 (Kolom B) = Pesan & Doa
+                // Index 2 (Kolom C) = Nama Anda
+                let rawWish = columns[1] || "Selamat!";
+                let rawName = columns[2] || "Tamu Undangan";
+                
+                // Bersihkan tanda kutip jika ada
+                let wish = rawWish.replace(/^"|"$/g, "").trim();
+                let name = rawName.replace(/^"|"$/g, "").trim();
+                
                 showToast(name, wish);
             }
             i = (i + 1) % rows.length;
-        }, 8000); 
+        }, 8000); // Muncul setiap 8 detik
     } catch (err) {
         console.error("Gagal memuat ucapan:", err);
     }
@@ -49,60 +64,72 @@ async function fetchWishes() {
 
 function showToast(name, wish) {
     const container = document.getElementById('toast-container');
+    if (!container) return;
+
     const toast = document.createElement('div');
     toast.className = 'toast-msg';
     toast.innerHTML = `<strong>${name}</strong><br><small>"${wish}"</small>`;
+    
     container.appendChild(toast);
-    setTimeout(() => toast.remove(), 6000);
+    
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 500);
+    }, 6000);
 }
 
-// 3. COUNTDOWN TIMER
+// 3. COUNTDOWN TIMER (26 April 2026)
 function updateCountdown() {
-    const target = new Date("April 26, 2026 13:00:00").getTime();
+    const weddingDate = new Date("April 26, 2026 13:00:00").getTime();
     const now = new Date().getTime();
-    const gap = target - now;
+    const gap = weddingDate - now;
 
     if (gap > 0) {
-        document.getElementById("days").innerText = Math.floor(gap / (1000 * 60 * 60 * 24));
-        document.getElementById("hours").innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById("minutes").innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById("seconds").innerText = Math.floor((gap % (1000 * 60)) / 1000);
+        const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+        const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((gap % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = d < 10 ? "0" + d : d;
+        document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
+        document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
+        document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
     }
 }
 
-// 4. FITUR TAMBAHAN
-let slideIdx = 0;
+// 4. FITUR LAIN (Slideshow, Music, Copy, RSVP)
+let sIndex = 0;
 function startSlideshow() {
-    let slides = document.getElementsByClassName("mySlides");
-    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
-    slideIdx++;
-    if (slideIdx > slides.length) slideIdx = 1;
-    slides[slideIdx-1].style.display = "block";
-    setTimeout(startSlideshow, 3000);
+    let s = document.getElementsByClassName("mySlides");
+    for (let i = 0; i < s.length; i++) s[i].style.display = "none";
+    sIndex++;
+    if (sIndex > s.length) sIndex = 1;
+    if (s[sIndex-1]) s[sIndex-1].style.display = "block";
+    setTimeout(startSlideshow, 3500);
 }
-
-window.addEventListener("scroll", () => {
-    document.querySelectorAll(".reveal").forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
-    });
-});
 
 function toggleMusic() {
     const icon = document.getElementById("music-icon");
-    if (audio.paused) { audio.play(); icon.innerText = "🎵"; }
+    if (audio.paused) { audio.play(); icon.innerText = "🎵"; } 
     else { audio.pause(); icon.innerText = "🔇"; }
 }
 
 function copyAccount() {
     navigator.clipboard.writeText("8620684253");
-    alert("Nomor rekening disalin!");
+    alert("Rekening BCA disalin!");
 }
 
 function sendRSVP() {
     const name = document.getElementById('rsvp-name').value;
     const status = document.getElementById('rsvp-status').value;
     const count = document.getElementById('rsvp-count').value || "1";
-    if (!name) return alert("Masukkan nama kawan!");
-    const msg = `Halo Hendra & Destanu, saya ${name} konfirmasi ${status} (${count} orang).`;
+    if (!name) { alert("Nama tidak boleh kosong!"); return; }
+    const msg = `Halo Hendra & Destanu, saya ${name}.\nKonfirmasi: *${status}*\nJumlah: ${count} orang.`;
     window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(msg)}`, '_blank');
 }
+
+window.addEventListener("scroll", () => {
+    document.querySelectorAll(".reveal").forEach(r => {
+        if (r.getBoundingClientRect().top < window.innerHeight - 50) r.classList.add("active");
+    });
+});
