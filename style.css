@@ -99,30 +99,38 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
 /* 3. PERUBAHAN NO 2 & 3: LATAR WEDDING & SPACE FIX */
 /* ========================================= */
 /* --- BACKGROUND WEDDING BARU (ANTI ERROR) --- */
-.wedding-theme-wrapper {
-    /* Menghilangkan link imgbb yang error dan menggantinya dengan pola floral CSS */
-    background-color: #f4f9ff; /* Warna dasar biru muda yang lembut */
-    background-image: 
-        radial-gradient(#d4a373 0.5px, transparent 0.5px), 
-        radial-gradient(#d4a373 0.5px, #f4f9ff 0.5px);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-    background-attachment: fixed;
-    border-top: 4px solid #d4a373;
-    padding-bottom: 50px;
+/* --- BACKGROUND FULL FOTO --- */
+.page-section-bg {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Memberikan efek paralaks saat scroll */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
-/* Card agar tetap terlihat kontras di atas background biru */
-.card {
-    background: rgba(255, 255, 255, 0.95); /* Putih bersih sedikit transparan */
-    margin: 10px auto;
-    padding: 25px;
-    width: 85%;
+/* --- KARTU EFEK KACA (Agar foto di belakang tetap terlihat) --- */
+.glass-card {
+    background: rgba(255, 255, 255, 0.2); /* Transparan */
+    backdrop-filter: blur(8px); /* Efek blur mewah */
+    -webkit-backdrop-filter: blur(8px);
+    padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid #d4a373;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 85%;
+    max-width: 400px;
     text-align: center;
-    color: #333;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Jarak antar elemen di dalam kartu */
+.glass-card p, .glass-card h2 {
+    margin-bottom: 15px;
 }
 
 /* Mengurangi Space Vertikal antar elemen HP agar padat */
