@@ -240,3 +240,39 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
 footer { padding: 40px; text-align: center; color: #fff; }
+
+/* --- STYLE COUNTDOWN --- */
+.timer-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.time-box {
+    text-align: center;
+    min-width: 60px;
+}
+
+.time-box span {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #b5835a;
+    display: block;
+    line-height: 1;
+}
+
+.time-box p {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.date-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-top: 10px;
+}
