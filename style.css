@@ -1,4 +1,4 @@
-/* --- RESET & BASE --- */
+/* --- 1. RESET & BASE --- */
 * {
     margin: 0;
     padding: 0;
@@ -13,20 +13,9 @@ body {
     overflow-x: hidden;
 }
 
-/* --- JUDUL & TIPOGRAFI UTAMA --- */
 h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-.section-title {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #1a1a1a;
-    margin-bottom: 25px;
-    font-weight: 700;
-}
-
-/* ========================================= */
-/* 1. COVER / OPENING PAGE */
-/* ========================================= */
+/* --- 2. COVER / OPENING PAGE --- */
 #cover-overlay {
     position: fixed;
     top: 0;
@@ -64,7 +53,6 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
 .cover-content {
     color: #fff;
     padding: 20px;
-    animation: fadeInUp 1s ease-out;
 }
 
 .cover-content h1 {
@@ -82,159 +70,98 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
     font-size: 1rem;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    animation: pulse 2s infinite;
     font-weight: bold;
 }
 
-/* ========================================= */
-/* 2. MAIN INVITATION CONTENT */
-/* ========================================= */
+/* --- 3. MAIN CONTENT & EFEK HALAMAN BUKU --- */
 #main-invitation {
     display: none;
-    height: auto;
     width: 100%;
 }
 
-/* ========================================= */
-/* 3. PERUBAHAN NO 2 & 3: LATAR WEDDING & SPACE FIX */
-/* ========================================= */
-/* --- BACKGROUND WEDDING BARU (ANTI ERROR) --- */
-/* --- BACKGROUND FULL FOTO --- */
-/* --- PERBAIKAN JARAK & POSISI TENGAH --- */
 .page-section-bg {
-    min-height: 110vh; /* Ditambah dari 100vh agar halaman lebih lega saat di-scroll */
+    min-height: 100vh;
     width: 100%;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: fixed; /* Efek Paralaks */
     display: flex;
-    justify-content: center; /* Mengetengahkan kartu secara horizontal */
-    align-items: center;     /* Mengetengahkan kartu secara vertikal */
-    position: relative;
-    padding: 50px 0;         /* Memberi ruang nafas di atas dan bawah kartu */
-}
-
-.glass-card {
-    background: rgba(255, 255, 255, 0.25); 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 40px 25px;      /* Padding diperlebar agar teks tidak mepet pinggir */
-    border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    width: 88%;
-    max-width: 420px;
-    
-    /* MEMASTIKAN SEMUA TEKS DI TENGAH */
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;      
-    
-    color: #fff;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-    box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+    position: relative;
+    margin-bottom: 100px; /* Jarak antar halaman buku */
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
 }
 
-/* Mengatur jarak antar baris teks di dalam kartu */
+/* --- 4. KARTU KONTRAS TINGGI (TENGAH) --- */
+.glass-card {
+    background: rgba(255, 255, 255, 0.92); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding: 45px 30px;
+    border-radius: 15px;
+    border-left: 5px solid #d4a373;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #2c3e50; 
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.3);
+}
+
+.glass-card h2, .glass-card h3 {
+    color: #b5835a;
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
 .glass-card * {
     margin-bottom: 15px; 
-    width: 100%; /* Agar tombol & input mengikuti lebar tengah */
+    width: 100%; 
 }
 
 .glass-card *:last-child {
     margin-bottom: 0;
 }
-/* Mengurangi Space Vertikal antar elemen HP agar padat */
-.page-section {
-    min-height: 80vh; /* Dikurangi dari 100vh agar muat di layar HP lebih baik */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Konten di tengah vertikal */
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-}
 
-/* Fix Space antar kartu informasi */
-.content-section {
-    padding: 30px 20px; /* Dikurangi dari 60px kawan */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Kartu Informasi */
-.card {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid #d4a373;
-    margin: 10px auto; /* Dikurangi dari 30px kawan */
-    max-width: 450px;
-    width: 90%;
-    text-align: center;
-    color: #1a1a1a;
-}
-
-/* ========================================= */
-/* 4. PERUBAHAN NO 1 & 2: BUBBLE FALLING TEXT */
-/* ========================================= */
+/* --- 5. HERO PAGE & TEXT FALLING --- */
 #hero-page {
     position: relative;
     z-index: 50;
-    min-height: 100vh; /* Tetap 100vh untuk halaman pertama */
+    min-height: 100vh;
 }
 
 .bubble-font {
-    font-family: 'Bungee', cursive; /* Font Bubble yang tebal dan tebal */
-    font-size: 1.5rem; /* Menyesuaikan agar muat di layar HP */
-    display: flex; /* Sentralisasi */
+    font-family: 'Bungee', cursive;
+    font-size: 1.5rem;
+    display: flex;
     justify-content: center;
     width: 100%;
-    position: absolute; /* Kunci di atas layar tengah */
-    top: 15%; /* Posisi di atas, sebelum nama couple */
-    left: 0;
+    position: absolute;
+    top: 15%;
     z-index: 100;
 }
 
-/* Class dasar per huruf, transparan & di atas layar kawan */
 .glow-rainbow-char {
     opacity: 0;
-    transform: translateY(-200px); /* Mulai dari atas layar */
+    transform: translateY(-200px);
     color: #fff;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    margin: 0 3px; /* Jarak antar huruf */
+    margin: 0 3px;
     display: inline-block;
 }
 
-/* Class untuk trigger animasi jatuh */
-.char-falling {
-    animation: fallFromTop 1s ease-out forwards;
-}
+.char-falling { animation: fallFromTop 1s ease-out forwards; }
+@keyframes fallFromTop { to { opacity: 1; transform: translateY(0); } }
 
-@keyframes fallFromTop {
-    to {
-        opacity: 1;
-        transform: translateY(0); /* Posisi akhir di tengah */
-    }
-}
-
-/* Animasi Rainbow Berjalan Halus (Neon Shift) */
-.rainbow-neon {
-    animation: neonRainbowShift 4s infinite alternate;
-}
-
+.rainbow-neon { animation: neonRainbowShift 4s infinite alternate; }
 @keyframes neonRainbowShift {
-    0% { color: #2ecc71; text-shadow: 0 0 10px #2ecc71; } /* Hijau */
-    50% { color: #f1c40f; text-shadow: 0 0 20px #f1c40f; } /* Emas */
-    100% { color: #e74c3c; text-shadow: 0 0 10px #e74c3c; } /* Merah */
+    0% { color: #2ecc71; text-shadow: 0 0 10px #2ecc71; }
+    50% { color: #f1c40f; text-shadow: 0 0 20px #f1c40f; }
+    100% { color: #e74c3c; text-shadow: 0 0 10px #e74c3c; }
 }
 
-/* --- TANGGAL 3D BOLD (PPT STYLE) --- */
 .date-3d-bold {
     font-family: 'Playfair Display', serif;
     font-weight: 900;
@@ -245,9 +172,7 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
     margin-top: 10px;
 }
 
-/* ========================================= */
-/* 5. SLIDESHOW HERO */
-/* ========================================= */
+/* --- 6. SLIDESHOW --- */
 .slideshow-container {
     position: absolute;
     width: 100%;
@@ -255,25 +180,8 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
     z-index: 1;
 }
 
-.mySlides {
-    display: none;
-    height: 100%;
-}
-
-.mySlides img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.slide-overlay {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 2;
-}
+.mySlides { display: none; height: 100%; }
+.mySlides img { width: 100%; height: 100%; object-fit: cover; }
 
 .hero-text {
     position: absolute;
@@ -289,74 +197,27 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
     font-family: 'Great Vibes', cursive;
     font-size: 2.5rem;
     color: #fff;
-    margin: 15px 0;
     text-shadow: 2px 2px 5px #000;
 }
 
-/* ========================================= */
-/* 6. KONFIRMASI (RSVP) & GIFT SECTION */
-/* ========================================= */
-.rsvp-section {
-    padding: 40px 20px 80px 20px;
-    text-align: center;
-}
-
-.form-rsvp input, .form-rsvp select {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-family: 'Poppins', sans-serif;
-}
-
+/* --- 7. BUTTONS & UTILS --- */
 .whatsapp-btn {
     background: #25d366;
     color: white;
     border: none;
     padding: 15px;
     border-radius: 30px;
-    width: 100%;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
     font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
 }
 
-.whatsapp-btn:hover { transform: scale(1.05); }
-
-/* Gift Section (BCA) */
-.acc-number {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #d4a373;
-    margin: 10px 0;
-}
-
-/* ========================================= */
-/* 7. LAINNYA & ANIMASI REVEAL */
-/* ========================================= */
-.reveal { opacity: 0; transform: translateY(40px); transition: 1.2s all ease; }
-.reveal.active { opacity: 1; transform: translateY(0); }
-
-.map-link-btn {
-    display: inline-block;
-    padding: 10px 25px;
-    border: 1px solid #d4a373;
-    color: #d4a373;
-    text-decoration: none;
-    border-radius: 25px;
-    font-size: 0.9rem;
-    transition: 0.3s;
-}
-
-.map-link-btn:hover {
-    background-color: #d4a373;
+.btn-map {
+    background: #d4a373;
     color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-block;
 }
 
 #music-control {
@@ -367,7 +228,7 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
@@ -375,15 +236,7 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
     cursor: pointer;
 }
 
-footer { padding: 40px; text-align: center; }
+.reveal { opacity: 0; transform: translateY(40px); transition: 1.2s all ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
 
-/* ANIMASI REVEAL PPT STYLE */
-.fade { animation: fadeEffect 1.5s; }
-@keyframes fadeEffect { from {opacity: 0.4} to {opacity: 1} }
-
-/* RESPONSIVE */
-@media (max-width: 480px) {
-    .couple-names-full { font-size: 2.2rem; }
-    .bubble-font { font-size: 1.2rem; }
-    .date-3d-bold { font-size: 1.5rem; }
-}
+footer { padding: 40px; text-align: center; color: #fff; }
