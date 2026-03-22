@@ -1,76 +1,369 @@
-const audio = document.getElementById("wedding-audio");
-
-function openInvitation() {
-    document.getElementById("cover-overlay").style.opacity = "0";
-    setTimeout(() => {
-        document.getElementById("cover-overlay").style.display = "none";
-        document.getElementById("main-invitation").style.display = "block";
-        document.getElementById("music-control").style.display = "flex";
-        if(audio) audio.play();
-        showSlides();
-        checkReveal();
-        triggerFallingText();
-    }, 800);
+/* --- RESET & BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
-function prepareFallingText() {
-    const container = document.getElementById('glow-text-falling');
-    const text = "THE WEDDING OF";
-    if(!container) return;
-    container.innerHTML = "";
-    text.split('').forEach(char => {
-        const span = document.createElement('span');
-        span.textContent = char === " " ? "\u00A0" : char;
-        span.classList.add('glow-rainbow-char');
-        container.appendChild(span);
-    });
-}
-prepareFallingText();
-
-function triggerFallingText() {
-    const chars = document.querySelectorAll('.glow-rainbow-char');
-    chars.forEach((span, i) => {
-        setTimeout(() => {
-            span.classList.add('char-falling');
-            setTimeout(() => span.classList.add('rainbow-neon'), 800);
-        }, i * 120);
-    });
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #000;
+    color: #333;
+    overflow-x: hidden;
 }
 
-function sendRSVP() {
-    const name = document.getElementById('rsvp-name').value;
-    const status = document.getElementById('rsvp-status').value;
-    const count = document.getElementById('rsvp-count').value || "1";
-    if(!name) { alert("Nama jangan kosong kawan!"); return; }
-    const msg = `Halo Hendra & Destania, saya ${name}.\nKonfirmasi: *${status}*\nJumlah: ${count} orang.`;
-    window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(msg)}`, '_blank');
+/* --- JUDUL & TIPOGRAFI UTAMA --- */
+h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+.section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    font-weight: 700;
 }
 
-let sIndex = 0;
-function showSlides() {
-    let s = document.getElementsByClassName("mySlides");
-    for (let i = 0; i < s.length; i++) s[i].style.display = "none";
-    sIndex++;
-    if (sIndex > s.length) sIndex = 1;
-    if(s[sIndex-1]) s[sIndex-1].style.display = "block";
-    setTimeout(showSlides, 3500);
+/* ========================================= */
+/* 1. COVER / OPENING PAGE */
+/* ========================================= */
+#cover-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: 1s opacity ease-in-out;
 }
 
-function checkReveal() {
-    let reveals = document.querySelectorAll(".reveal");
-    reveals.forEach(r => {
-        if (r.getBoundingClientRect().top < window.innerHeight - 50) r.classList.add("active");
-    });
-}
-window.addEventListener("scroll", checkReveal);
-
-function toggleMusic() {
-    if (audio.paused) { audio.play(); document.getElementById("music-icon").innerText = "🎵"; }
-    else { audio.pause(); document.getElementById("music-icon").innerText = "🔇"; }
+.bg-video-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
 }
 
-function copyAccount() {
-    navigator.clipboard.writeText("8620684253");
-    alert("Rekening BCA disalin!");
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
 }
- 
+
+.cover-content {
+    color: #fff;
+    padding: 20px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.cover-content h1 {
+    font-size: 2.5rem;
+    margin: 15px 0;
+}
+
+.open-btn {
+    margin-top: 25px;
+    padding: 12px 35px;
+    background-color: #d4a373;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
+    font-weight: bold;
+}
+
+/* ========================================= */
+/* 2. MAIN INVITATION CONTENT */
+/* ========================================= */
+#main-invitation {
+    display: none;
+    height: auto;
+    width: 100%;
+}
+
+/* ========================================= */
+/* 3. PERUBAHAN NO 2 & 3: LATAR WEDDING & SPACE FIX */
+/* ========================================= */
+/* --- BACKGROUND WEDDING BARU (ANTI ERROR) --- */
+.wedding-theme-wrapper {
+    /* Menghilangkan link imgbb yang error dan menggantinya dengan pola floral CSS */
+    background-color: #f4f9ff; /* Warna dasar biru muda yang lembut */
+    background-image: 
+        radial-gradient(#d4a373 0.5px, transparent 0.5px), 
+        radial-gradient(#d4a373 0.5px, #f4f9ff 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    background-attachment: fixed;
+    border-top: 4px solid #d4a373;
+    padding-bottom: 50px;
+}
+
+/* Card agar tetap terlihat kontras di atas background biru */
+.card {
+    background: rgba(255, 255, 255, 0.95); /* Putih bersih sedikit transparan */
+    margin: 10px auto;
+    padding: 25px;
+    width: 85%;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #d4a373;
+    text-align: center;
+    color: #333;
+}
+
+/* Mengurangi Space Vertikal antar elemen HP agar padat */
+.page-section {
+    min-height: 80vh; /* Dikurangi dari 100vh agar muat di layar HP lebih baik */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Konten di tengah vertikal */
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Fix Space antar kartu informasi */
+.content-section {
+    padding: 30px 20px; /* Dikurangi dari 60px kawan */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Kartu Informasi */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #d4a373;
+    margin: 10px auto; /* Dikurangi dari 30px kawan */
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    color: #1a1a1a;
+}
+
+/* ========================================= */
+/* 4. PERUBAHAN NO 1 & 2: BUBBLE FALLING TEXT */
+/* ========================================= */
+#hero-page {
+    position: relative;
+    z-index: 50;
+    min-height: 100vh; /* Tetap 100vh untuk halaman pertama */
+}
+
+.bubble-font {
+    font-family: 'Bungee', cursive; /* Font Bubble yang tebal dan tebal */
+    font-size: 1.5rem; /* Menyesuaikan agar muat di layar HP */
+    display: flex; /* Sentralisasi */
+    justify-content: center;
+    width: 100%;
+    position: absolute; /* Kunci di atas layar tengah */
+    top: 15%; /* Posisi di atas, sebelum nama couple */
+    left: 0;
+    z-index: 100;
+}
+
+/* Class dasar per huruf, transparan & di atas layar kawan */
+.glow-rainbow-char {
+    opacity: 0;
+    transform: translateY(-200px); /* Mulai dari atas layar */
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin: 0 3px; /* Jarak antar huruf */
+    display: inline-block;
+}
+
+/* Class untuk trigger animasi jatuh */
+.char-falling {
+    animation: fallFromTop 1s ease-out forwards;
+}
+
+@keyframes fallFromTop {
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Posisi akhir di tengah */
+    }
+}
+
+/* Animasi Rainbow Berjalan Halus (Neon Shift) */
+.rainbow-neon {
+    animation: neonRainbowShift 4s infinite alternate;
+}
+
+@keyframes neonRainbowShift {
+    0% { color: #2ecc71; text-shadow: 0 0 10px #2ecc71; } /* Hijau */
+    50% { color: #f1c40f; text-shadow: 0 0 20px #f1c40f; } /* Emas */
+    100% { color: #e74c3c; text-shadow: 0 0 10px #e74c3c; } /* Merah */
+}
+
+/* --- TANGGAL 3D BOLD (PPT STYLE) --- */
+.date-3d-bold {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: #fff;
+    text-shadow: 2px 2px 0px #d4a373, 4px 4px 8px rgba(0,0,0,0.8);
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+/* ========================================= */
+/* 5. SLIDESHOW HERO */
+/* ========================================= */
+.slideshow-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.mySlides {
+    display: none;
+    height: 100%;
+}
+
+.mySlides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-overlay {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    z-index: 5;
+}
+
+.couple-names-full {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #fff;
+    margin: 15px 0;
+    text-shadow: 2px 2px 5px #000;
+}
+
+/* ========================================= */
+/* 6. KONFIRMASI (RSVP) & GIFT SECTION */
+/* ========================================= */
+.rsvp-section {
+    padding: 40px 20px 80px 20px;
+    text-align: center;
+}
+
+.form-rsvp input, .form-rsvp select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-family: 'Poppins', sans-serif;
+}
+
+.whatsapp-btn {
+    background: #25d366;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 30px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-btn:hover { transform: scale(1.05); }
+
+/* Gift Section (BCA) */
+.acc-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #d4a373;
+    margin: 10px 0;
+}
+
+/* ========================================= */
+/* 7. LAINNYA & ANIMASI REVEAL */
+/* ========================================= */
+.reveal { opacity: 0; transform: translateY(40px); transition: 1.2s all ease; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+.map-link-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    border: 1px solid #d4a373;
+    color: #d4a373;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.map-link-btn:hover {
+    background-color: #d4a373;
+    color: white;
+}
+
+#music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #d4a373;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: #fff;
+    cursor: pointer;
+}
+
+footer { padding: 40px; text-align: center; }
+
+/* ANIMASI REVEAL PPT STYLE */
+.fade { animation: fadeEffect 1.5s; }
+@keyframes fadeEffect { from {opacity: 0.4} to {opacity: 1} }
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+    .couple-names-full { font-size: 2.2rem; }
+    .bubble-font { font-size: 1.2rem; }
+    .date-3d-bold { font-size: 1.5rem; }
+}
