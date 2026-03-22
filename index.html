@@ -9,6 +9,8 @@
 </head>
 <body>
 
+    <div id="toast-container"></div>
+
     <div id="cover-overlay">
         <video autoplay muted loop playsinline class="bg-video-cover"><source src="Background.mp4" type="video/mp4"></video>
         <div class="bg-overlay"></div>
@@ -107,16 +109,15 @@
             </div>
         </section>
 
-<section class="page-section-bg" style="background-image: url('Slide2.jpg');">
-    <div class="glass-card reveal">
-        <h2 class="title-3d">Ucapan & Doa Restu</h2>
-        <p>Berikan ucapan manis untuk kedua mempelai:</p>
-        
-        <iframe src="https://forms.gle/hbQuqA6npeH8cpM76" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Memuat…</iframe>
-    </div>
-</section>
+        <section class="page-section-bg" style="background-image: url('Slide2.jpg');">
+            <div class="glass-card reveal">
+                <h2 class="title-3d">Ucapan & Doa Restu</h2>
+                <p>Berikan ucapan manis untuk kedua mempelai:</p>
+                <iframe src="https://forms.gle/hbQuqA6npeH8cpM76" width="100%" height="500" frameborder="0">Memuat…</iframe>
+            </div>
+        </section>
 
-        <footer style="background-color: #000; color: #fff; padding: 60px 20px;">
+        <footer style="background-color: #000; color: #fff; padding: 60px 20px; text-align: center;">
             <p>"Suatu kebahagiaan & Kehormatan bagi kami apabila Bapak/Ibu/Saudara/I, berkenan hadir dan memberikan Doa Restu Kepada Kami"</p>
             <h2 style="margin: 20px 0;">"Kami Yang Berbahagia"</h2>
             <h1 class="glow-rainbow small">Hendra & Destanu</h1>
@@ -125,9 +126,8 @@
     </div>
 
     <audio id="wedding-audio" loop><source src="Weddingsound.mp3" type="audio/mp3"></audio>
-    <div id="music-control" onclick="toggleMusic()"><span id="music-icon">🎵</span></div>
+    <div id="music-control" onclick="toggleMusic()" style="display: none;"><span id="music-icon">🎵</span></div>
 
     <script src="script.js"></script>
 </body>
-<div id="toast-container"></div>
 </html>
