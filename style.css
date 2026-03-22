@@ -1,6 +1,6 @@
 /* --- RESET & BASE --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background: #000; }
+body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background: #000; color: #333; }
 
 /* --- COVER OVERLAY --- */
 #cover-overlay {
@@ -10,23 +10,25 @@ body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background: #000;
 }
 .bg-video-cover { position: absolute; width: 100%; height: 100%; object-fit: cover; }
 .bg-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
-.cover-content { position: relative; color: #fff; text-align: center; padding: 20px; }
-.cover-content h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin: 20px 0; }
+.cover-content { position: relative; color: #fff; text-align: center; padding: 20px; z-index: 10; }
+.cover-content h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 20px 0; }
 .open-btn {
-    padding: 12px 30px; background: #d4a373; color: white; border: none;
-    border-radius: 25px; cursor: pointer; font-weight: bold;
+    padding: 12px 35px; background: #d4a373; color: white; border: none;
+    border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1rem;
 }
 
 /* --- TOAST NOTIFICATION (UCAPAN MELAYANG) --- */
 #toast-container {
     position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
-    z-index: 10000; width: 85%; max-width: 320px; pointer-events: none;
+    z-index: 100000; width: 90%; max-width: 320px; pointer-events: none;
+    display: flex; flex-direction: column-reverse;
 }
 .toast-msg {
-    background: rgba(255, 255, 255, 0.95); color: #333;
-    padding: 12px 15px; border-radius: 12px; margin-bottom: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); border-left: 5px solid #d4a373;
-    font-size: 13px; animation: slideUp 0.5s ease forwards;
+    background: rgba(255, 255, 255, 0.98); color: #333;
+    padding: 12px 18px; border-radius: 15px; margin-top: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4); border-left: 6px solid #d4a373;
+    font-size: 13px; line-height: 1.4;
+    animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 /* --- MAIN SECTIONS --- */
@@ -36,38 +38,40 @@ body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background: #000;
     background-size: cover; background-position: center; background-attachment: fixed;
 }
 .glass-card {
-    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
-    padding: 40px 20px; border-radius: 20px; width: 88%; max-width: 400px;
-    text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); padding: 35px 20px; border-radius: 20px;
+    width: 88%; max-width: 400px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* --- SLIDESHOW HERO --- */
-.slideshow-container { position: absolute; width: 100%; height: 100%; top: 0; }
+/* --- SLIDESHOW & HERO --- */
+.slideshow-container { position: absolute; width: 100%; height: 100%; top: 0; z-index: 1; }
 .mySlides img { width: 100%; height: 100vh; object-fit: cover; }
-.hero-text { position: relative; color: white; text-align: center; z-index: 5; }
+.hero-text { position: relative; color: white; text-align: center; z-index: 5; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
 .couple-names-full { font-family: 'Great Vibes', cursive; font-size: 2.5rem; margin-bottom: 10px; }
 
 /* --- COUNTDOWN --- */
 .timer-wrapper { display: flex; justify-content: space-around; margin: 20px 0; }
-.time-box { background: #fefae0; padding: 10px; border-radius: 10px; min-width: 60px; }
+.time-box { background: #fefae0; padding: 10px; border-radius: 10px; min-width: 65px; }
 .time-box span { display: block; font-size: 1.5rem; font-weight: bold; color: #bc6c25; }
 
 /* --- FORMS & BUTTONS --- */
-input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 8px; }
+input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; }
 .btn-map, .whatsapp-btn {
-    display: inline-block; width: 100%; padding: 12px; background: #d4a373;
-    color: white; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 10px;
+    display: block; width: 100%; padding: 13px; background: #d4a373;
+    color: white; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 10px; text-align: center; border: none;
 }
-.whatsapp-btn { background: #25d366; border: none; }
+.whatsapp-btn { background: #25d366; }
 
 /* --- MUSIC CONTROL --- */
 #music-control {
     position: fixed; bottom: 25px; right: 25px; width: 50px; height: 50px;
     background: #d4a373; border-radius: 50%; display: flex; align-items: center;
-    justify-content: center; color: white; cursor: pointer; z-index: 1000;
+    justify-content: center; color: white; cursor: pointer; z-index: 9999;
 }
 
 /* --- ANIMATIONS --- */
 .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
 .reveal.active { opacity: 1; transform: translateY(0); }
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.fade { animation: fadeEffect 1.5s; }
+@keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
