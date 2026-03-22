@@ -1,4 +1,4 @@
-// --- KONFIGURASI ---
+// --- CONFIG ---
 const audio = document.getElementById("wedding-audio");
 const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRvbCobJ5VKCt2HEZCw2Xi7qaSgTTpFlszbrclTrVWkD1CAz3QVcWaFAI5nE_baQDTPC7hL72WaAnmj/pub?gid=618440573&single=true&output=csv';
 
@@ -12,75 +12,56 @@ function openInvitation() {
         if (cover) cover.style.display = "none";
         if (main) main.style.display = "block";
         if (musicBtn) musicBtn.style.display = "flex";
-        if (audio) audio.play();
+        if (audio) audio.play().catch(() => console.log("Music play blocked"));
         
         startSlideshow();
         setInterval(updateCountdown, 1000); 
-        fetchWishes(); // Jalankan pengambilan data
+        fetchWishes(); 
     }, 1000);
 }
 
-// FUNGSI AMBIL DATA - VERSI PALING KUAT
 async function fetchWishes() {
     try {
         const response = await fetch(csvUrl + '&t=' + new Date().getTime());
         const rawData = await response.text();
-        
-        // Pecah baris dan bersihkan
-        const rows = rawData.split(/\r?\n/).filter(row => row.trim().length > 0).slice(1);
+        const rows = rawData.split(/\r?\n/).filter(r => r.trim().length > 0).slice(1);
 
         if (rows.length === 0) return;
 
-        let currentIndex = 0;
-        
-        // Interval pemunculan ucapan
+        let idx = 0;
         setInterval(() => {
-            const currentRow = rows[currentIndex];
-            
-            // Mencoba split dengan koma atau titik koma
+            const currentRow = rows[idx];
             let cols = currentRow.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
             if (cols.length < 3) cols = currentRow.split(';');
 
             if (cols.length >= 3) {
-                // Bersihkan kutip dua (") yang sering muncul dari Google CSV
+                // Kolom B (Index 1) = Pesan, Kolom C (Index 2) = Nama
                 let wish = cols[1].replace(/"/g, '').trim();
                 let name = cols[2].replace(/"/g, '').trim();
-
-                if (name && wish) {
-                    showToast(name, wish);
-                }
+                if (name && wish) showToast(name, wish);
             }
-            
-            currentIndex = (currentIndex + 1) % rows.length;
-        }, 7000); // Muncul setiap 7 detik
-
-    } catch (error) {
-        console.log("Gagal mengambil data:", error);
-    }
+            idx = (idx + 1) % rows.length;
+        }, 8000); 
+    } catch (e) { console.error("CSV Error", e); }
 }
 
-function showToast(nama, pesan) {
+function showToast(n, p) {
     const container = document.getElementById('toast-container');
     if (!container) return;
-
     const div = document.createElement('div');
     div.className = 'toast-msg';
-    div.innerHTML = `<strong>${nama}</strong><br>${pesan}`;
-    
+    div.innerHTML = `<strong>${n}</strong><br>${p}`;
     container.appendChild(div);
-
-    // Hapus pesan setelah 5 detik agar layar tidak penuh
     setTimeout(() => {
         div.style.opacity = "0";
-        setTimeout(() => div.remove(), 500);
-    }, 5000);
+        setTimeout(() => div.remove(), 600);
+    }, 6000);
 }
 
-// --- FITUR LAINNYA ---
 function updateCountdown() {
-    const weddingDate = new Date("April 26, 2026 13:00:00").getTime();
+    const target = new Date("April 26, 2026 13:00:00").getTime();
     const now = new Date().getTime();
-    const gap = weddingDate - now;
+    const gap = target - now;
     if (gap > 0) {
         document.getElementById("days").innerText = Math.floor(gap / (1000 * 60 * 60 * 24));
         document.getElementById("hours").innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -91,11 +72,11 @@ function updateCountdown() {
 
 let sIdx = 0;
 function startSlideshow() {
-    let slides = document.getElementsByClassName("mySlides");
-    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    let s = document.getElementsByClassName("mySlides");
+    for (let i = 0; i < s.length; i++) s[i].style.display = "none";
     sIdx++;
-    if (sIdx > slides.length) sIdx = 1;
-    if (slides[sIdx-1]) slides[sIdx-1].style.display = "block";
+    if (sIdx > s.length) sIdx = 1;
+    if (s[sIdx-1]) s[sIdx-1].style.display = "block";
     setTimeout(startSlideshow, 3500);
 }
 
@@ -107,14 +88,14 @@ function toggleMusic() {
 
 function copyAccount() {
     navigator.clipboard.writeText("8620684253");
-    alert("Rekening disalin!");
+    alert("Nomor rekening BCA disalin!");
 }
 
 function sendRSVP() {
     const name = document.getElementById('rsvp-name').value;
     const status = document.getElementById('rsvp-status').value;
     const count = document.getElementById('rsvp-count').value || "1";
-    if (!name) return alert("Isi nama dulu kawan!");
+    if (!name) return alert("Silakan isi nama Anda!");
     const msg = `Halo Hendra & Destanu, saya ${name} konfirmasi ${status} (${count} orang).`;
     window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(msg)}`, '_blank');
 }
