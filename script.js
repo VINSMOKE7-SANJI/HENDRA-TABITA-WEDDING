@@ -2,7 +2,6 @@
 const audio = document.getElementById("wedding-audio");
 const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRvbCobJ5VKCt2HEZCw2Xi7qaSgTTpFlszbrclTrVWkD1CAz3QVcWaFAI5nE_baQDTPC7hL72WaAnmj/pub?gid=618440573&single=true&output=csv';
 
-// 1. FUNGSI BUKA UNDANGAN
 function openInvitation() {
     const cover = document.getElementById("cover-overlay");
     const main = document.getElementById("main-invitation");
@@ -13,79 +12,71 @@ function openInvitation() {
         if (cover) cover.style.display = "none";
         if (main) main.style.display = "block";
         if (musicBtn) musicBtn.style.display = "flex";
-        if (audio) audio.play().catch(e => console.log("Playback blocked"));
+        if (audio) audio.play();
         
         startSlideshow();
         setInterval(updateCountdown, 1000); 
-        fetchWishes(); 
+        fetchWishes(); // Jalankan pengambilan data
     }, 1000);
 }
 
-// 2. AMBIL DATA DARI GOOGLE SHEETS
+// FUNGSI AMBIL DATA - VERSI PALING KUAT
 async function fetchWishes() {
     try {
-        console.log("Mencoba mengambil data...");
         const response = await fetch(csvUrl + '&t=' + new Date().getTime());
-        const data = await response.text();
+        const rawData = await response.text();
         
-        // Pecah baris
-        const rows = data.split(/\r?\n/).slice(1).filter(r => r.trim() !== "");
-        
-        if (rows.length === 0) {
-            console.log("Data kosong di Sheets.");
-            return;
-        }
+        // Pecah baris dan bersihkan
+        const rows = rawData.split(/\r?\n/).filter(row => row.trim().length > 0).slice(1);
 
-        let i = 0;
+        if (rows.length === 0) return;
+
+        let currentIndex = 0;
+        
+        // Interval pemunculan ucapan
         setInterval(() => {
-            const row = rows[i];
+            const currentRow = rows[currentIndex];
             
-            // DETEKSI PEMISAH: Apakah pakai koma (,) atau titik koma (;)
-            let columns = [];
-            if (row.includes('","') || row.split(',').length >= 3) {
-                columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            } else {
-                columns = row.split(/;(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-            }
+            // Mencoba split dengan koma atau titik koma
+            let cols = currentRow.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            if (cols.length < 3) cols = currentRow.split(';');
 
-            if (columns && columns.length >= 3) {
-                // Kolom 1: Pesan, Kolom 2: Nama
-                let wish = columns[1].replace(/^"|"$/g, "").trim();
-                let name = columns[2].replace(/^"|"$/g, "").trim();
-                
+            if (cols.length >= 3) {
+                // Bersihkan kutip dua (") yang sering muncul dari Google CSV
+                let wish = cols[1].replace(/"/g, '').trim();
+                let name = cols[2].replace(/"/g, '').trim();
+
                 if (name && wish) {
-                    console.log("Memunculkan ucapan dari:", name);
                     showToast(name, wish);
                 }
             }
-            i = (i + 1) % rows.length;
-        }, 8000); 
-    } catch (err) {
-        console.error("Error Fetch:", err);
+            
+            currentIndex = (currentIndex + 1) % rows.length;
+        }, 7000); // Muncul setiap 7 detik
+
+    } catch (error) {
+        console.log("Gagal mengambil data:", error);
     }
 }
 
-function showToast(name, wish) {
+function showToast(nama, pesan) {
     const container = document.getElementById('toast-container');
     if (!container) return;
 
-    const toast = document.createElement('div');
-    toast.className = 'toast-msg';
-    toast.style.opacity = "0"; // Start invisible
-    toast.innerHTML = `<strong>${name}</strong><br><small>"${wish}"</small>`;
+    const div = document.createElement('div');
+    div.className = 'toast-msg';
+    div.innerHTML = `<strong>${nama}</strong><br>${pesan}`;
     
-    container.appendChild(toast);
-    
-    // Trigger animation via JS as fallback
-    setTimeout(() => { toast.style.opacity = "1"; }, 100);
-    
+    container.appendChild(div);
+
+    // Hapus pesan setelah 5 detik agar layar tidak penuh
     setTimeout(() => {
-        toast.style.opacity = "0";
-        setTimeout(() => toast.remove(), 500);
-    }, 6000);
+        div.style.opacity = "0";
+        setTimeout(() => div.remove(), 500);
+    }, 5000);
 }
 
-// 3. COUNTDOWN & FITUR LAIN
+// --- FITUR LAINNYA ---
 function updateCountdown() {
     const weddingDate = new Date("April 26, 2026 13:00:00").getTime();
     const now = new Date().getTime();
@@ -98,13 +89,13 @@ function updateCountdown() {
     }
 }
 
-let sIndex = 0;
+let sIdx = 0;
 function startSlideshow() {
-    let s = document.getElementsByClassName("mySlides");
-    for (let i = 0; i < s.length; i++) s[i].style.display = "none";
-    sIndex++;
-    if (sIndex > s.length) sIndex = 1;
-    if (s[sIndex-1]) s[sIndex-1].style.display = "block";
+    let slides = document.getElementsByClassName("mySlides");
+    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    sIdx++;
+    if (sIdx > slides.length) sIdx = 1;
+    if (slides[sIdx-1]) slides[sIdx-1].style.display = "block";
     setTimeout(startSlideshow, 3500);
 }
 
@@ -116,15 +107,15 @@ function toggleMusic() {
 
 function copyAccount() {
     navigator.clipboard.writeText("8620684253");
-    alert("Rekening BCA disalin!");
+    alert("Rekening disalin!");
 }
 
 function sendRSVP() {
     const name = document.getElementById('rsvp-name').value;
     const status = document.getElementById('rsvp-status').value;
     const count = document.getElementById('rsvp-count').value || "1";
-    if (!name) return alert("Nama jangan kosong!");
-    const msg = `Halo Hendra & Destanu, saya ${name}.\nKonfirmasi: *${status}*\nJumlah: ${count} orang.`;
+    if (!name) return alert("Isi nama dulu kawan!");
+    const msg = `Halo Hendra & Destanu, saya ${name} konfirmasi ${status} (${count} orang).`;
     window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
