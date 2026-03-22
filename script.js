@@ -1,19 +1,26 @@
 const audio = document.getElementById("wedding-audio");
 
-// 1. FUNGSI BUKA UNDANGAN
+// 1. FUNGSI BUKA UNDANGAN (DIPERBAIKI)
 function openInvitation() {
     document.getElementById("cover-overlay").style.opacity = "0";
     setTimeout(() => {
         document.getElementById("cover-overlay").style.display = "none";
         document.getElementById("main-invitation").style.display = "block";
         document.getElementById("music-control").style.display = "flex";
+        
+        const audio = document.getElementById("wedding-audio");
         if(audio) audio.play();
         
         // Menjalankan semua fungsi animasi & timer
         showSlides();
         checkReveal();
         triggerFallingText();
-        setInterval(updateCountdown, 1000); // Mulai hitung mundur setiap detik
+        setInterval(updateCountdown, 1000); 
+
+        // --- TAMBAHKAN INI AGAR NOTIFIKASI MUNCUL ---
+        fetchWishes(); 
+        // --------------------------------------------
+        
     }, 800);
 }
 
@@ -121,3 +128,41 @@ function copyAccount() {
     navigator.clipboard.writeText("8620684253");
     alert("Rekening BCA disalin!");
 }
+
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRvbCobJ5VKCt2HEZCw2Xi7qaSgTTpFlszbrclTrVWkD1CAz3QVcWaFAl5nE_baQDTPC7hL72WaAnmj/pub?output=csv';
+
+async function fetchWishes() {
+    try {
+        const response = await fetch(csvUrl);
+        const data = await response.text();
+        const rows = data.split('\n').slice(1); // Buang header
+        
+        if (rows.length === 0) return;
+
+        let i = 0;
+        setInterval(() => {
+            const columns = rows[i].split(','); 
+            // Pastikan kolom 1 (Nama) dan 2 (Ucapan) ada isinya
+            if (columns[1] && columns[2]) {
+                const cleanName = columns[1].replace(/"/g, "");
+                const cleanWish = columns[2].replace(/"/g, "");
+                showToast(cleanName, cleanWish);
+            }
+            i = (i + 1) % rows.length;
+        }, 9000); // Muncul setiap 9 detik
+    } catch (err) {
+        console.log("Menunggu ucapan pertama masuk...");
+    }
+}
+
+function showToast(name, wish) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = 'toast-msg';
+    toast.innerHTML = `<b>${name}</b> "${wish}"`;
+    container.appendChild(toast);
+    
+    setTimeout(() => { toast.remove(); }, 6000);
+}
+
+// JANGAN LUPA: Panggil fetchWishes() di dalam fungsi openInvitation() kamu!
