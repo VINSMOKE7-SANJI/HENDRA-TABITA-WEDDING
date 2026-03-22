@@ -75,7 +75,7 @@ function sendRSVP() {
     
     if(!name) { alert("Nama jangan kosong kawan!"); return; }
     
-    const msg = `Halo Hendra & Destania, saya ${name}.\nKonfirmasi: *${status}*\nJumlah: ${count} orang.`;
+    const msg = `Halo Hendra & Destanu, saya ${name}.\nKonfirmasi: *${status}*\nJumlah: ${count} orang.`;
     // Mengarahkan ke nomor yang tertera di screenshot
     window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(msg)}`, '_blank');
 }
