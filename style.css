@@ -1,278 +1,76 @@
-/* --- 1. RESET & BASE --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
+const audio = document.getElementById("wedding-audio");
+
+function openInvitation() {
+    document.getElementById("cover-overlay").style.opacity = "0";
+    setTimeout(() => {
+        document.getElementById("cover-overlay").style.display = "none";
+        document.getElementById("main-invitation").style.display = "block";
+        document.getElementById("music-control").style.display = "flex";
+        if(audio) audio.play();
+        showSlides();
+        checkReveal();
+        triggerFallingText();
+    }, 800);
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #000;
-    color: #333;
-    overflow-x: hidden;
+function prepareFallingText() {
+    const container = document.getElementById('glow-text-falling');
+    const text = "THE WEDDING OF";
+    if(!container) return;
+    container.innerHTML = "";
+    text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char === " " ? "\u00A0" : char;
+        span.classList.add('glow-rainbow-char');
+        container.appendChild(span);
+    });
+}
+prepareFallingText();
+
+function triggerFallingText() {
+    const chars = document.querySelectorAll('.glow-rainbow-char');
+    chars.forEach((span, i) => {
+        setTimeout(() => {
+            span.classList.add('char-falling');
+            setTimeout(() => span.classList.add('rainbow-neon'), 800);
+        }, i * 120);
+    });
 }
 
-h1, h2, h3 { font-family: 'Playfair Display', serif; }
-
-/* --- 2. COVER / OPENING PAGE --- */
-#cover-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    transition: 1s opacity ease-in-out;
+function sendRSVP() {
+    const name = document.getElementById('rsvp-name').value;
+    const status = document.getElementById('rsvp-status').value;
+    const count = document.getElementById('rsvp-count').value || "1";
+    if(!name) { alert("Nama jangan kosong kawan!"); return; }
+    const msg = `Halo Hendra & Destania, saya ${name}.\nKonfirmasi: *${status}*\nJumlah: ${count} orang.`;
+    window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-.bg-video-cover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
+let sIndex = 0;
+function showSlides() {
+    let s = document.getElementsByClassName("mySlides");
+    for (let i = 0; i < s.length; i++) s[i].style.display = "none";
+    sIndex++;
+    if (sIndex > s.length) sIndex = 1;
+    if(s[sIndex-1]) s[sIndex-1].style.display = "block";
+    setTimeout(showSlides, 3500);
 }
 
-.bg-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: -1;
+function checkReveal() {
+    let reveals = document.querySelectorAll(".reveal");
+    reveals.forEach(r => {
+        if (r.getBoundingClientRect().top < window.innerHeight - 50) r.classList.add("active");
+    });
+}
+window.addEventListener("scroll", checkReveal);
+
+function toggleMusic() {
+    if (audio.paused) { audio.play(); document.getElementById("music-icon").innerText = "🎵"; }
+    else { audio.pause(); document.getElementById("music-icon").innerText = "🔇"; }
 }
 
-.cover-content {
-    color: #fff;
-    padding: 20px;
+function copyAccount() {
+    navigator.clipboard.writeText("8620684253");
+    alert("Rekening BCA disalin!");
 }
-
-.cover-content h1 {
-    font-size: 2.5rem;
-    margin: 15px 0;
-}
-
-.open-btn {
-    margin-top: 25px;
-    padding: 12px 35px;
-    background-color: #d4a373;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    font-weight: bold;
-}
-
-/* --- 3. MAIN CONTENT & EFEK HALAMAN BUKU --- */
-#main-invitation {
-    display: none;
-    width: 100%;
-}
-
-.page-section-bg {
-    min-height: 100vh;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Efek Paralaks */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin-bottom: 100px; /* Jarak antar halaman buku */
-    box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
-}
-
-/* --- 4. KARTU KONTRAS TINGGI (TENGAH) --- */
-.glass-card {
-    background: rgba(255, 255, 255, 0.92); 
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    padding: 45px 30px;
-    border-radius: 15px;
-    border-left: 5px solid #d4a373;
-    width: 90%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    color: #2c3e50; 
-    box-shadow: 10px 10px 30px rgba(0,0,0,0.3);
-}
-
-.glass-card h2, .glass-card h3 {
-    color: #b5835a;
-    margin-bottom: 20px;
-    font-weight: 900;
-}
-
-.glass-card * {
-    margin-bottom: 15px; 
-    width: 100%; 
-}
-
-.glass-card *:last-child {
-    margin-bottom: 0;
-}
-
-/* --- 5. HERO PAGE & TEXT FALLING --- */
-#hero-page {
-    position: relative;
-    z-index: 50;
-    min-height: 100vh;
-}
-
-.bubble-font {
-    font-family: 'Bungee', cursive;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    position: absolute;
-    top: 15%;
-    z-index: 100;
-}
-
-.glow-rainbow-char {
-    opacity: 0;
-    transform: translateY(-200px);
-    color: #fff;
-    margin: 0 3px;
-    display: inline-block;
-}
-
-.char-falling { animation: fallFromTop 1s ease-out forwards; }
-@keyframes fallFromTop { to { opacity: 1; transform: translateY(0); } }
-
-.rainbow-neon { animation: neonRainbowShift 4s infinite alternate; }
-@keyframes neonRainbowShift {
-    0% { color: #2ecc71; text-shadow: 0 0 10px #2ecc71; }
-    50% { color: #f1c40f; text-shadow: 0 0 20px #f1c40f; }
-    100% { color: #e74c3c; text-shadow: 0 0 10px #e74c3c; }
-}
-
-.date-3d-bold {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 1.8rem;
-    color: #fff;
-    text-shadow: 2px 2px 0px #d4a373, 4px 4px 8px rgba(0,0,0,0.8);
-    letter-spacing: 2px;
-    margin-top: 10px;
-}
-
-/* --- 6. SLIDESHOW --- */
-.slideshow-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.mySlides { display: none; height: 100%; }
-.mySlides img { width: 100%; height: 100%; object-fit: cover; }
-
-.hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 100%;
-    z-index: 5;
-}
-
-.couple-names-full {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2.5rem;
-    color: #fff;
-    text-shadow: 2px 2px 5px #000;
-}
-
-/* --- 7. BUTTONS & UTILS --- */
-.whatsapp-btn {
-    background: #25d366;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.btn-map {
-    background: #d4a373;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    display: inline-block;
-}
-
-#music-control {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #d4a373;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    color: #fff;
-    cursor: pointer;
-}
-
-.reveal { opacity: 0; transform: translateY(40px); transition: 1.2s all ease; }
-.reveal.active { opacity: 1; transform: translateY(0); }
-
-footer { padding: 40px; text-align: center; color: #fff; }
-
-/* --- STYLE COUNTDOWN --- */
-.timer-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 20px 0;
-}
-
-.time-box {
-    text-align: center;
-    min-width: 60px;
-}
-
-.time-box span {
-    font-size: 2rem;
-    font-weight: 900;
-    color: #b5835a;
-    display: block;
-    line-height: 1;
-}
-
-.time-box p {
-    font-size: 0.8rem;
-    color: #555;
-    margin-top: 5px;
-    text-transform: uppercase;
-    font-weight: 600;
-}
-
-.date-text {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-top: 10px;
-}
+ 
