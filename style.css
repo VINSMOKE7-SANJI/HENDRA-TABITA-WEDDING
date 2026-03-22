@@ -98,14 +98,31 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
 /* ========================================= */
 /* 3. PERUBAHAN NO 2 & 3: LATAR WEDDING & SPACE FIX */
 /* ========================================= */
+/* --- BACKGROUND WEDDING BARU (ANTI ERROR) --- */
 .wedding-theme-wrapper {
-    /* Latar Belakang Wedding Mewah (Tekstur Cream & Pola Floral Emas Transparan) */
-    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
-                url('https://www.transparenttextures.com/patterns/cream-pixels.png'),
-                url('https://i.ibb.co/L5M46P6/floral-bg.png'); /* Pattern bunga halus */
-    background-color: #fdfaf6; /* Warna gading halus */
+    /* Menghilangkan link imgbb yang error dan menggantinya dengan pola floral CSS */
+    background-color: #f4f9ff; /* Warna dasar biru muda yang lembut */
+    background-image: 
+        radial-gradient(#d4a373 0.5px, transparent 0.5px), 
+        radial-gradient(#d4a373 0.5px, #f4f9ff 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
     background-attachment: fixed;
-    border-top: 5px solid #d4a373; /* Garis pemisah dari hero section */
+    border-top: 4px solid #d4a373;
+    padding-bottom: 50px;
+}
+
+/* Card agar tetap terlihat kontras di atas background biru */
+.card {
+    background: rgba(255, 255, 255, 0.95); /* Putih bersih sedikit transparan */
+    margin: 10px auto;
+    padding: 25px;
+    width: 85%;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #d4a373;
+    text-align: center;
+    color: #333;
 }
 
 /* Mengurangi Space Vertikal antar elemen HP agar padat */
