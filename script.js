@@ -1,63 +1,102 @@
-// CONFIG: Gunakan link CSV milikmu
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRvbCobJ5VKCt2HEZCw2Xi7qaSgTTpFIszbrcITrVWkD1CAz3QVcWaFAI5nE_baQDTPC7hL72WaAnmj/pub?gid=618440573&single=true&output=csv';
 const audio = document.getElementById("wedding-audio");
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRvbCobJ5VKCt2HEZCw2Xi7qaSgTTpFlszbrclTrVWkD1CAz3QVcWaFAI5nE_baQDTPC7hL72WaAnmj/pub?gid=618440573&single=true&output=csv';
 
 function openInvitation() {
-    document.getElementById("cover-overlay").style.display = "none";
-    document.getElementById("main-invitation").style.display = "block";
-    if (audio) audio.play();
-    
-    // Jalankan fitur utama
-    startCountdown();
-    fetchWishes(); 
+    const cover = document.getElementById("cover-overlay");
+    const main = document.getElementById("main-invitation");
+    const musicBtn = document.getElementById("music-control");
+
+    cover.style.opacity = "0";
+    setTimeout(() => {
+        cover.style.display = "none";
+        main.style.display = "block";
+        musicBtn.style.display = "flex";
+        if (audio) audio.play();
+        
+        startSlideshow();
+        setInterval(updateCountdown, 1000);
+        fetchWishes(); // Menjalankan sistem ucapan melayang
+    }, 1000);
 }
 
 async function fetchWishes() {
     try {
-        // Anti-cache: tambahkan timestamp unik di akhir URL
-        const response = await fetch(csvUrl + '&cache=' + new Date().getTime());
-        const text = await response.text();
-        const rows = text.split(/\r?\n/).slice(1); // Potong header
-
+        const response = await fetch(csvUrl + '&t=' + new Date().getTime());
+        const data = await response.text();
+        const rows = data.split(/\r?\n/).slice(1).filter(r => r.trim() !== "");
+        
         if (rows.length === 0) return;
 
         let i = 0;
         setInterval(() => {
             const columns = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
             if (columns.length >= 3) {
-                // Sesuai screenshot: Kolom 1 (Pesan), Kolom 2 (Nama)
-                const msg = columns[1].replace(/"/g, '').trim();
-                const sender = columns[2].replace(/"/g, '').trim();
-                if (msg && sender) showToast(sender, msg);
+                // Kolom B (Index 1) = Pesan, Kolom C (Index 2) = Nama
+                let wish = columns[1].replace(/^"|"$/g, "").trim();
+                let name = columns[2].replace(/^"|"$/g, "").trim();
+                showToast(name, wish);
             }
             i = (i + 1) % rows.length;
-        }, 7000); // Muncul tiap 7 detik
-    } catch (e) { console.log("Gagal ambil data"); }
+        }, 8000); 
+    } catch (err) { console.error("Error fetching wishes:", err); }
 }
 
-function showToast(nama, teks) {
+function showToast(name, wish) {
     const container = document.getElementById('toast-container');
-    const div = document.createElement('div');
-    div.className = 'toast-msg';
-    div.innerHTML = `<strong>${nama}</strong><br>${teks}`;
-    container.appendChild(div);
-    
+    const toast = document.createElement('div');
+    toast.className = 'toast-msg';
+    toast.innerHTML = `<strong>${name}</strong><br><small>"${wish}"</small>`;
+    container.appendChild(toast);
     setTimeout(() => {
-        div.style.opacity = "0";
-        setTimeout(() => div.remove(), 1000);
-    }, 5000);
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 500);
+    }, 6000);
 }
 
-function startCountdown() {
+function updateCountdown() {
     const target = new Date("April 26, 2026 13:00:00").getTime();
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = target - now;
-        if (diff > 0) {
-            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
-        }
-    }, 1000);
+    const now = new Date().getTime();
+    const gap = target - now;
+    if (gap > 0) {
+        document.getElementById("days").innerText = Math.floor(gap / (1000 * 60 * 60 * 24));
+        document.getElementById("hours").innerText = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("minutes").innerText = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById("seconds").innerText = Math.floor((gap % (1000 * 60)) / 1000);
+    }
 }
+
+let slideIdx = 0;
+function startSlideshow() {
+    let slides = document.getElementsByClassName("mySlides");
+    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    slideIdx++;
+    if (slideIdx > slides.length) slideIdx = 1;
+    if (slides[slideIdx-1]) slides[slideIdx-1].style.display = "block";
+    setTimeout(startSlideshow, 3000);
+}
+
+function toggleMusic() {
+    const icon = document.getElementById("music-icon");
+    if (audio.paused) { audio.play(); icon.innerText = "🎵"; }
+    else { audio.pause(); icon.innerText = "🔇"; }
+}
+
+function copyAccount() {
+    navigator.clipboard.writeText("8620684253");
+    alert("Nomor rekening berhasil disalin!");
+}
+
+function sendRSVP() {
+    const name = document.getElementById('rsvp-name').value;
+    const status = document.getElementById('rsvp-status').value;
+    const count = document.getElementById('rsvp-count').value || "1";
+    if (!name) return alert("Harap isi nama Anda!");
+    const msg = `Halo Hendra & Destanu, saya ${name} konfirmasi ${status} (${count} orang).`;
+    window.open(`https://wa.me/6285743190790?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+window.addEventListener("scroll", () => {
+    document.querySelectorAll(".reveal").forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
+    });
+});
