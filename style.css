@@ -240,3 +240,10 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
 footer { padding: 40px; text-align: center; color: #fff; }
+
+/* Menambahkan sedikit ruang untuk iframe agar tidak terpotong */
+iframe {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    margin-top: 15px;
+}
