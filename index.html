@@ -10,7 +10,9 @@
 <body>
 
     <div id="cover-overlay">
-        <video autoplay muted loop playsinline class="bg-video-cover"><source src="Background.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline class="bg-video-cover">
+            <source src="Background.mp4" type="video/mp4">
+        </video>
         <div class="bg-overlay"></div>
         <div class="cover-content">
             <p>UNDANGAN PERNIKAHAN</p>
@@ -22,6 +24,7 @@
     </div>
 
     <div id="main-invitation" style="display: none;">
+        
         <section class="page-section" id="hero-page">
             <div class="slideshow-container">
                 <div class="mySlides fade"><img src="Slide1.jpg"></div>
@@ -39,8 +42,10 @@
         </section>
 
         <div class="wedding-theme-wrapper">
-            <section class="content-section reveal">
+            
+            <section class="content-section reveal page-section">
                 <div class="card">
+                    <p class="greeting">"Dengan sukacita kami mengundang Anda"</p>
                     <div class="verse">
                         <p>"Apa yang sudah dipersatukan Allah tidak boleh diceraikan manusia"</p>
                         <span>(Matius 19:6)</span>
@@ -48,48 +53,60 @@
                 </div>
             </section>
 
-            <section class="content-section reveal">
+            <section class="content-section reveal page-section">
                 <h2 class="title-3d">Waktu & Lokasi</h2>
                 <div class="card">
-                    <h3>Pemberkatan & Resepsi</h3>
+                    <h3>Pemberkatan</h3>
+                    <p>13.00 WIB - Selesai</p>
                     <p>📍 Jl. Raya Jelidro IV No.2, Surabaya</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn-map">Lihat Lokasi</a>
+                </div>
+                <div class="card">
+                    <h3>Resepsi</h3>
+                    <p>15.00 WIB - Selesai</p>
                     <p>📍 Gg. Mawar 08 No.Kav 71, Surabaya</p>
                     <a href="https://maps.google.com" target="_blank" class="btn-map">Lihat Lokasi</a>
                 </div>
             </section>
 
-            <section class="content-section reveal">
+            <section class="content-section reveal page-section">
                 <div class="card gift-card">
                     <h2 class="title-3d">Wedding Gift</h2>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" width="100">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" width="120">
                     <p class="acc-number">8620684253</p>
                     <p>A/N HENDRA KATUMHOIT</p>
                     <button class="btn-map" onclick="copyAccount()">Salin Rekening</button>
                 </div>
             </section>
 
-            <section class="content-section reveal">
+            <section class="content-section reveal page-section">
                 <div class="card rsvp-card">
                     <h2 class="title-3d">Konfirmasi Kehadiran</h2>
                     <div class="form-rsvp">
-                        <input type="text" id="rsvp-name" placeholder="Nama Lengkap">
+                        <input type="text" id="rsvp-name" placeholder="Nama Lengkap" required>
                         <select id="rsvp-status">
-                            <option value="Hadir">Saya Akan Hadir</option>
-                            <option value="Tidak Hadir">Berhalangan Hadir</option>
+                            <option value="Hadir">Ya, Saya Akan Hadir</option>
+                            <option value="Tidak Hadir">Maaf, Berhalangan Hadir</option>
                         </select>
-                        <input type="number" id="rsvp-count" placeholder="Jumlah Orang" min="1">
-                        <button class="whatsapp-btn" onclick="sendRSVP()">Kirim via WA</button>
+                        <input type="number" id="rsvp-count" placeholder="Jumlah Tamu (Orang)" min="1">
+                        <button class="whatsapp-btn" onclick="sendRSVP()">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20"> 
+                            Kirim Konfirmasi via WA
+                        </button>
                     </div>
                 </div>
             </section>
 
-            <footer>
+            <footer class="page-section footer-end">
+                <p>Terima Kasih atas Doa Restunya</p>
                 <h2 class="glow-rainbow small">Hendra & Destania</h2>
             </footer>
         </div>
     </div>
 
-    <audio id="wedding-audio" loop><source src="Weddingsound.mp3" type="audio/mp3"></audio>
+    <audio id="wedding-audio" loop>
+        <source src="Weddingsound.mp3" type="audio/mp3">
+    </audio>
     <div id="music-control" onclick="toggleMusic()"><span id="music-icon">🎵</span></div>
 
     <script src="script.js"></script>
