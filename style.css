@@ -100,39 +100,51 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; }
 /* ========================================= */
 /* --- BACKGROUND WEDDING BARU (ANTI ERROR) --- */
 /* --- BACKGROUND FULL FOTO --- */
+/* --- PERBAIKAN JARAK & POSISI TENGAH --- */
 .page-section-bg {
-    min-height: 100vh;
+    min-height: 110vh; /* Ditambah dari 100vh agar halaman lebih lega saat di-scroll */
     width: 100%;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Memberikan efek paralaks saat scroll */
+    background-attachment: fixed;
     display: flex;
+    justify-content: center; /* Mengetengahkan kartu secara horizontal */
+    align-items: center;     /* Mengetengahkan kartu secara vertikal */
+    position: relative;
+    padding: 50px 0;         /* Memberi ruang nafas di atas dan bawah kartu */
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.25); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 40px 25px;      /* Padding diperlebar agar teks tidak mepet pinggir */
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    width: 88%;
+    max-width: 420px;
+    
+    /* MEMASTIKAN SEMUA TEKS DI TENGAH */
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-}
-
-/* --- KARTU EFEK KACA (Agar foto di belakang tetap terlihat) --- */
-.glass-card {
-    background: rgba(255, 255, 255, 0.2); /* Transparan */
-    backdrop-filter: blur(8px); /* Efek blur mewah */
-    -webkit-backdrop-filter: blur(8px);
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 85%;
-    max-width: 400px;
-    text-align: center;
+    text-align: center;      
+    
     color: #fff;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.4);
 }
 
-/* Jarak antar elemen di dalam kartu */
-.glass-card p, .glass-card h2 {
-    margin-bottom: 15px;
+/* Mengatur jarak antar baris teks di dalam kartu */
+.glass-card * {
+    margin-bottom: 15px; 
+    width: 100%; /* Agar tombol & input mengikuti lebar tengah */
 }
 
+.glass-card *:last-child {
+    margin-bottom: 0;
+}
 /* Mengurangi Space Vertikal antar elemen HP agar padat */
 .page-section {
     min-height: 80vh; /* Dikurangi dari 100vh agar muat di layar HP lebih baik */
