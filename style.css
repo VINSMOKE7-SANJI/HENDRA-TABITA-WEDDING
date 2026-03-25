@@ -12,9 +12,12 @@ body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background: #000;
 .bg-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
 .cover-content { position: relative; color: #fff; text-align: center; padding: 20px; z-index: 10; }
 .cover-content h1 { font-family: 'Playfair Display', serif; font-size: 2rem; margin: 20px 0; }
+
+/* TOMBOL BUKA UNDANGAN DENGAN ANIMASI */
 .open-btn {
     padding: 12px 35px; background: #d4a373; color: white; border: none;
     border-radius: 25px; cursor: pointer; font-weight: bold; font-size: 1rem;
+    animation: pulseFade 2s infinite; /* Efek Napas/Fade */
 }
 
 /* --- TOAST NOTIFICATION (UCAPAN MELAYANG) --- */
@@ -56,14 +59,12 @@ body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background: #000;
     width: 100%;
     padding: 0 10px;
 }
-
 .hero-text .main-title {
     font-family: 'Great Vibes', cursive;
     font-size: 2.8rem;
     margin-bottom: 30px;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
 }
-
 .couple-wrap {
     display: flex;
     justify-content: center;
@@ -71,32 +72,12 @@ body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background: #000;
     gap: 15px;
     margin-bottom: 30px;
 }
-
-.mempelai-info {
-    flex: 1;
-}
-
+.mempelai-info { flex: 1; }
 .info-kiri { text-align: left; padding-left: 10px; }
 .info-kanan { text-align: right; padding-right: 10px; }
-
-.mempelai-info h2 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.mempelai-info p {
-    font-size: 0.75rem;
-    line-height: 1.3;
-    font-weight: 300;
-}
-
-.mid-line {
-    width: 1px;
-    height: 70px;
-    background: rgba(255, 255, 255, 0.6);
-}
-
+.mempelai-info h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+.mempelai-info p { font-size: 0.75rem; line-height: 1.3; font-weight: 300; }
+.mid-line { width: 1px; height: 70px; background: rgba(255, 255, 255, 0.6); }
 .date-hero {
     font-size: 2.2rem;
     font-weight: 900;
@@ -109,11 +90,13 @@ body { font-family: 'Poppins', sans-serif; overflow-x: hidden; background: #000;
 .time-box { background: #fefae0; padding: 10px; border-radius: 10px; min-width: 65px; }
 .time-box span { display: block; font-size: 1.5rem; font-weight: bold; color: #bc6c25; }
 
-/* --- FORMS & BUTTONS --- */
+/* --- FORMS & TOMBOL-TOMBOL (DENGAN ANIMASI) --- */
 input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; }
+
 .btn-map, .whatsapp-btn {
     display: block; width: 100%; padding: 13px; background: #d4a373;
     color: white; text-decoration: none; border-radius: 10px; font-weight: bold; margin-top: 10px; text-align: center; border: none;
+    animation: pulseFade 2s infinite; /* Tambahkan animasi di sini */
 }
 .whatsapp-btn { background: #25d366; }
 
@@ -127,6 +110,14 @@ input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #dd
 /* --- ANIMATIONS --- */
 .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
 .reveal.active { opacity: 1; transform: translateY(0); }
+
+/* ANIMASI FADEOUT/PULSE UNTUK TOMBOL */
+@keyframes pulseFade {
+    0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(212, 163, 115, 0.7); }
+    50% { transform: scale(1.05); opacity: 0.8; box-shadow: 0 0 20px 10px rgba(212, 163, 115, 0); }
+    100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(212, 163, 115, 0); }
+}
+
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 .fade { animation: fadeEffect 1.5s; }
 @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
@@ -134,7 +125,7 @@ input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #dd
 /* --- SCROLL INDICATOR (TANDA PANAH BESAR) --- */
 .scroll-indicator {
     position: absolute;
-    bottom: 140px; /* Jarak disesuaikan agar tidak menumpuk dengan toast */
+    bottom: 140px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -144,7 +135,6 @@ input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #dd
     z-index: 6;
     opacity: 0.9;
 }
-
 .scroll-indicator span {
     font-size: 0.8rem;
     font-weight: 600;
@@ -153,16 +143,14 @@ input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #dd
     margin-bottom: 12px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
 }
-
 .arrow {
-    width: 40px; /* Ukuran 2x lipat (sebelumnya 20px) */
-    height: 40px; /* Ukuran 2x lipat (sebelumnya 20px) */
-    border-right: 4px solid white; /* Garis lebih tebal */
-    border-bottom: 4px solid white; /* Garis lebih tebal */
+    width: 40px;
+    height: 40px;
+    border-right: 4px solid white;
+    border-bottom: 4px solid white;
     transform: rotate(45deg);
     animation: scrollMove 2s infinite;
 }
-
 @keyframes scrollMove {
     0% { transform: rotate(45deg) translate(0, 0); opacity: 0; }
     50% { opacity: 1; }
